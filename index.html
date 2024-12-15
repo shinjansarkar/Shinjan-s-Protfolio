@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S.Sarkar - DevOps & Cloud Developer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #0a1929;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        .cyberpunk-border {
+            position: relative;
+            border: 2px solid #00ff88;
+            box-shadow: 0 0 15px #00ff88;
+        }
+        .glitch-effect {
+            text-shadow: 2px 2px #ff00ff, -2px -2px #00ffcc;
+            animation: glitch 2s infinite;
+        }
+        @keyframes glitch {
+            0% { text-shadow: 2px 2px #ff00ff, -2px -2px #00ffcc; }
+            25% { text-shadow: -2px 2px #ff00ff, 2px -2px #00ffcc; }
+            50% { text-shadow: 2px -2px #ff00ff, -2px 2px #00ffcc; }
+            75% { text-shadow: -2px -2px #ff00ff, 2px 2px #00ffcc; }
+            100% { text-shadow: 2px 2px #ff00ff, -2px -2px #00ffcc; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-[#0a1929]/90 backdrop-blur-sm z-50 border-b border-[#00ff88]">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center">
+                <h1 class="text-[#00ff88] font-['Orbitron'] text-2xl font-bold">S.SARKAR</h1>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#home" class="text-[#00ff88] hover:text-[#ff00ff] transition">HOME</a>
+                    <a href="#about" class="text-[#00ff88] hover:text-[#ff00ff] transition">ABOUT</a>
+                    <a href="#skills" class="text-[#00ff88] hover:text-[#ff00ff] transition">SKILLS</a>
+                    <a href="#projects" class="text-[#00ff88] hover:text-[#ff00ff] transition">PROJECTS</a>
+                    <a href="#contact" class="text-[#00ff88] hover:text-[#ff00ff] transition">CONTACT</a>
+                </div>
+                <button class="md:hidden text-[#00ff88]"><i class="bi bi-list text-2xl"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center pt-16">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div class="text-center md:text-left">
+                    <h1 class="text-4xl md:text-6xl font-['Orbitron'] font-bold text-white glitch-effect mb-4">
+                        Hello, I'm<br>Shinjan Sarkar
+                    </h1>
+                    <p class="text-[#00ff88] text-xl mb-6">DevOps & Cloud Engineer</p>
+                    <div class="flex space-x-4 justify-center md:justify-start">
+                        <a href="https://drive.google.com/file/d/1SXPFh44xuiD9yTi7g3lkGUitjrinbrEl/view?usp=sharing" class="cyberpunk-border px-6 py-2 text-[#00ff88] hover:bg-[#00ff88] hover:text-[#0a1929] transition">Resume</a>
+                        <a href="#projects" class="cyberpunk-border px-6 py-2 text-[#00ff88] hover:bg-[#00ff88] hover:text-[#0a1929] transition">Projects</a>
+                    </div>
+                </div>
+                <div class="cyberpunk-border rounded-lg overflow-hidden md:block">
+                    <img src="my.jpg" alt="Tech Background" class="w-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Other sections remain unchanged -->
+<!-- About Section -->
+<section id="about" class="py-20 bg-[#0d2137]">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-['Orbitron'] text-[#00ff88] mb-12 text-center">ABOUT ME</h2>
+        <div class="max-w-3xl mx-auto text-center text-gray-300">
+            <p class="text-lg mb-6 font-semibold">
+                I'm <strong>Shinjan Sarkar</strong>, a final-year <strong>BCA student</strong> at RCC Institute of Information Technology, passionate about <strong>DevOps, Cloud Computing</strong>, and <strong>CI/CD</strong>.
+            </p>
+            <p class="text-lg mb-6 font-semibold">
+                I aim to build scalable cloud solutions and streamline development processes.
+            </p>
+            
+            <p class="mb-6">
+                Beyond tech, I'm a <strong>football enthusiast</strong> and a budding <strong>photographer</strong>. Let’s connect and shape the future of technology together! 🚀
+            </p>
+        </div>
+    </div>
+</section>
+    
+
+<!-- Skills Section -->
+<section id="skills" class="py-20">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-['Orbitron'] text-[#00ff88] mb-12 text-center">TECHNICAL ARSENAL</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div class="cyberpunk-border p-6 text-center">
+                <img src="aws.png" alt="AWS Logo" class="mx-auto h-12">
+                <h3 class="text-white mt-4">AWS</h3>
+            </div>
+            <div class="cyberpunk-border p-6 text-center">
+                <img src="docker.png" alt="Docker Logo" class="mx-auto h-12">
+                <h3 class="text-white mt-4">Docker</h3>
+            </div>
+            <div class="cyberpunk-border p-6 text-center">
+                <img src="pyimg.png" alt="Python Logo" class="mx-auto h-12">
+                <h3 class="text-white mt-4">Python</h3>
+            </div>
+            <div class="cyberpunk-border p-6 text-center">
+                <img src="bash.png" alt="Bash Logo" class="mx-auto h-12.5">
+                <h3 class="text-white mt-4">Bash</h3>
+            </div>
+            <div class="cyberpunk-border p-6 text-center">
+                <img src="jenkins.png" alt="Jenkins Logo" class="mx-auto h-12">
+                <h3 class="text-white mt-4">Jenkins</h3>
+            </div>
+            <div class="cyberpunk-border p-6 text-center">
+                <img src="linux.png" alt="Linux Logo" class="mx-auto h-12">
+                <h3 class="text-white mt-4">Linux</h3>
+            </div>
+            <div class="cyberpunk-border p-6 text-center">
+                <img src="github.png" alt="GitHub Logo" class="mx-auto h-12">
+                <h3 class="text-white mt-4">GitHub</h3>
+            </div>
+            <div class="cyberpunk-border p-6 text-center">
+                <img src="gitlab.png" alt="GitLab Logo" class="mx-auto h-12">
+                <h3 class="text-white mt-4">GitLab</h3>
+            </div>
+            <div class="cyberpunk-border p-6 text-center">
+                <img src="git bash.png" alt="Git Logo" class="mx-auto h-12">
+                <h3 class="text-white mt-4">Git</h3>
+            </div>
+            <div class="cyberpunk-border p-6 text-center">
+                <img src="dsa.png" alt="DSA with Python Logo" class="mx-auto h-12">
+                <h3 class="text-white mt-4">DSA with Python</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20 bg-[#0d2137]">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-['Orbitron'] text-[#00ff88] mb-12 text-center">PROJECTS</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="cyberpunk-border p-6">
+                    <h3 class="text-[#00ff88] text-xl mb-4">Node.js Todo App - Dockerized and Hosted on Docker Hub</h3>
+                    <p class="text-gray-300 mb-4">Built and containerized a Node.js Todo app using Docker, created an optimized Dockerfile,pushed the image to Docker Hub, and deployed the app locally on localhost:3000.</p>
+                    <a href="https://www.linkedin.com/in/shinjan-sarkar-544323251/details/projects/" class="text-[#ff00ff] hover:text-[#00ff88]">Learn More →</a>
+                </div>
+                <div class="cyberpunk-border p-6">
+                    <h3 class="text-[#00ff88] text-xl mb-4">Automating File Creation for JavaScript Projects with Python</h3>
+                    <p class="text-gray-300 mb-4">I wrote a Python script to automate creating index.html, style.css, and index.js files in a specified folder to avoid manually creating them while learning JavaScript.</p>
+                    <a href="https://github.com/shinjansarkar/automate_file_creation" class="text-[#ff00ff] hover:text-[#00ff88]">Learn More →</a>
+                </div>
+                <div class="cyberpunk-border p-6">
+                    <h3 class="text-[#00ff88] text-xl mb-4">Exposed Flask App IP with Ngrok!</h3>
+                    <p class="text-gray-300 mb-4">Excited to have learned how to expose my Flask weather app’s IP using Ngrok—an essential tool for DevOps workflows.</p>
+                    <a href="https://www.linkedin.com/posts/shinjan-sarkar-544323251_connections-devopsjourney-ngrok-activity-7272535704222539776-u80G?utm_source=share&utm_medium=member_desktop" class="text-[#ff00ff] hover:text-[#00ff88]">Learn More →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-['Orbitron'] text-[#00ff88] mb-12 text-center">CONNECT</h2>
+            <div class="max-w-2xl mx-auto cyberpunk-border p-8">
+                <form class="space-y-6">
+                    <div>
+                        <label class="block text-[#00ff88] mb-2">Name</label>
+                        <input type="text" class="w-full bg-[#0d2137] border-2 border-[#00ff88] p-2 text-white focus:outline-none focus:border-[#ff00ff]">
+                    </div>
+                    <div>
+                        <label class="block text-[#00ff88] mb-2">Email</label>
+                        <input type="email" class="w-full bg-[#0d2137] border-2 border-[#00ff88] p-2 text-white focus:outline-none focus:border-[#ff00ff]">
+                    </div>
+                    <div>
+                        <label class="block text-[#00ff88] mb-2">Message</label>
+                        <textarea class="w-full bg-[#0d2137] border-2 border-[#00ff88] p-2 text-white focus:outline-none focus:border-[#ff00ff]" rows="4"></textarea>
+                    </div>
+                    <button type="submit" class="w-full cyberpunk-border py-2 text-[#00ff88] hover:bg-[#00ff88] hover:text-[#0a1929] transition">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-6 border-t border-[#00ff88]">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-center space-x-6">
+                <a href="https://github.com/shinjansarkar" class="text-[#00ff88] hover:text-[#ff00ff]"><i class="bi bi-github text-2xl"></i></a>
+                <a href="https://www.linkedin.com/in/shinjan-sarkar-544323251/" class="text-[#00ff88] hover:text-[#ff00ff]"><i class="bi bi-linkedin text-2xl"></i></a>
+                <a href="https://x.com/shinjan_sarkar" class="text-[#00ff88] hover:text-[#ff00ff]"><i class="bi bi-twitter text-2xl"></i></a>
+            </div>
+            <p class="text-center text-[#00ff88] mt-4">© 2024 Shinjan Sarkar. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.md\\:hidden').addEventListener('click', function() {
+            const menu = document.createElement('div');
+            menu.className = 'fixed inset-0 bg-[#0a1929] z-50 flex flex-col items-center justify-center space-y-6';
+            menu.innerHTML = `
+                <a href="#home" class="text-[#00ff88] text-xl">HOME</a>
+                <a href="#about" class="text-[#00ff88] text-xl">ABOUT</a>
+                <a href="#skills" class="text-[#00ff88] text-xl">SKILLS</a>
+                <a href="#projects" class="text-[#00ff88] text-xl">PROJECTS</a>
+                <a href="#contact" class="text-[#00ff88] text-xl">CONTACT</a>
+                <button class="absolute top-4 right-4 text-[#00ff88]"><i class="bi bi-x text-3xl"></i></button>
+            `;
+            document.body.appendChild(menu);
+            
+            menu.querySelector('button').addEventListener('click', function() {
+                menu.remove();
+            });
+
+            menu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function() {
+                    menu.remove();
+                });
+            });
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
