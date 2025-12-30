@@ -20,7 +20,7 @@ const Contact = () => {
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    className="text-6xl md:text-9xl font-black text-white tracking-tighter mb-12"
+                    className="text-4xl sm:text-6xl md:text-9xl font-black text-white tracking-tighter mb-12"
                 >
                     LET'S WORK <br className="hidden md:block" /> TOGETHER.
                 </motion.h2>
