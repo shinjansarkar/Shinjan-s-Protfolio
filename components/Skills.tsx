@@ -33,12 +33,12 @@ const Skills = () => {
                     {skills.map((skill, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            whileInView={{ opacity: 1, scale: 1, y: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.05 }}
-                            whileHover={{ scale: 1.05 }}
-                            className="flex items-center gap-3 px-6 py-4 bg-obsidian-900 border border-obsidian-800 rounded-lg hover:border-electric-blue/50 transition-colors"
+                            transition={{ delay: index * 0.05, duration: 0.4, type: "spring" }}
+                            whileHover={{ scale: 1.1, y: -5, rotate: 2 }}
+                            className="flex items-center gap-3 px-6 py-4 bg-obsidian-900 border border-obsidian-800 rounded-lg hover:border-electric-blue/50 transition-colors hover:shadow-lg hover:shadow-electric-blue/20"
                         >
                             <skill.icon className="text-xl text-obsidian-200" />
                             <span className="text-sm font-medium text-obsidian-200">{skill.name}</span>

@@ -24,6 +24,7 @@ export default function RootLayout({
             <head>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+                <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap" rel="stylesheet" />
             </head>
             <body className="antialiased bg-obsidian-950 text-white selection:bg-electric-cyan/30 selection:text-electric-cyan">
                 {children}

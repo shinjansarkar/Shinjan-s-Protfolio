@@ -59,7 +59,7 @@ const Projects = () => {
             description: "VS Code Extension to auto-detect project types & generate optimized Dockerfiles.",
             tech: ["Typescript", "Docker", "Automation"],
             icon: FaDocker,
-            link: "#",
+            link: "https://marketplace.visualstudio.com/items?itemName=ShinjanSarkar.auto-docker-extension&ssr=false#review-details",
             github: "https://github.com/shinjansarkar/auto-docker", // Assuming link pattern or placeholder
         },
         {
@@ -90,7 +90,7 @@ const Projects = () => {
 
     return (
         <section id="projects" className="relative py-32 bg-obsidian-950">
-            <div className="container mx-auto px-6">
+            <div className="container mx-auto px-6 max-w-7xl">
                 <div className="mb-20">
                     <h2 className="text-xs font-bold tracking-[0.2em] text-electric-blue uppercase mb-4">
                         // Selected Works

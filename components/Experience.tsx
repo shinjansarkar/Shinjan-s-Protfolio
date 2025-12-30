@@ -34,10 +34,11 @@ const Experience = () => {
                     {experiences.map((exp, index) => (
                         <motion.div
                             key={index}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            initial={{ opacity: 0, y: 30, x: -20 }}
+                            whileInView={{ opacity: 1, y: 0, x: 0 }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
+                            transition={{ delay: index * 0.15, duration: 0.6, ease: "easeOut" }}
+                            whileHover={{ x: 10, scale: 1.02 }}
                             className="group py-8 md:py-12 border-t border-obsidian-900 transition-colors hover:border-electric-blue/30"
                         >
                             <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-2 md:gap-4 mb-4">

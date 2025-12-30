@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { FaTwitter, FaEnvelope } from "react-icons/fa";
 import Magnetic from "./Magnetic";
 
 const Contact = () => {
@@ -32,10 +33,39 @@ const Contact = () => {
                 >
                     <Magnetic>
                         <a
-                            href="mailto:contact@shinjansarkar.com"
+                            href="mailto:shinjansarkar268@gmail.com"
                             className="inline-block px-12 py-5 bg-white text-obsidian-950 text-xl font-bold tracking-widest uppercase hover:bg-electric-cyan hover:scale-105 transition-all duration-300 rounded-full"
                         >
                             Say Hello
+                        </a>
+                    </Magnetic>
+                </motion.div>
+
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 }}
+                    className="mt-12 flex items-center justify-center gap-8"
+                >
+                    <Magnetic>
+                        <a
+                            href="mailto:shinjansarkar268@gmail.com"
+                            className="flex items-center gap-2 text-obsidian-300 hover:text-white transition-colors"
+                        >
+                            <FaEnvelope size={20} />
+                            <span className="text-sm">shinjansarkar268@gmail.com</span>
+                        </a>
+                    </Magnetic>
+                    <Magnetic>
+                        <a
+                            href="https://x.com/shinjan_sarkar"
+                            target="_blank"
+                            rel="noreferrer"
+                            className="flex items-center gap-2 text-obsidian-300 hover:text-white transition-colors"
+                        >
+                            <FaTwitter size={20} />
+                            <span className="text-sm">@shinjan_sarkar</span>
                         </a>
                     </Magnetic>
                 </motion.div>

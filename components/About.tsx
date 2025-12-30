@@ -33,8 +33,8 @@ const About = () => {
 
     return (
         <section id="about" className="relative py-32 bg-obsidian-950">
-            <div className="container mx-auto px-6">
-                <div className="grid lg:grid-cols-2 gap-20 items-center">
+            <div className="container mx-auto px-6 max-w-7xl">
+                <div className="grid lg:grid-cols-2 gap-16 items-center">
                     {/* Left: Narrative */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}

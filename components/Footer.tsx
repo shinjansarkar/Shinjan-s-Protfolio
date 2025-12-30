@@ -15,7 +15,13 @@ const Footer = () => {
     ];
 
     return (
-        <footer className="relative bg-obsidian-950 pt-20 pb-10 overflow-hidden border-t border-obsidian-900">
+        <motion.footer
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="relative bg-obsidian-950 pt-20 pb-10 overflow-hidden border-t border-obsidian-900"
+        >
             <div className="w-full flex flex-col items-center">
 
                 {/* Socials - The "Sexy" Part */}
@@ -52,7 +58,7 @@ const Footer = () => {
                     <p className="mt-4 md:mt-0">Local Time: {new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', timeZoneName: 'short' })}</p>
                 </div>
             </div>
-        </footer>
+        </motion.footer>
     );
 };
 

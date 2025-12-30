@@ -2,13 +2,48 @@
 
 import { motion } from "framer-motion";
 import { FaGithub, FaCodeBranch, FaStar } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
 const Contributions = () => {
-    const stats = [
-        { label: "Total Commits", value: "2,500+", icon: FaGithub },
-        { label: "Pull Requests", value: "140+", icon: FaCodeBranch },
-        { label: "Stars Earned", value: "350+", icon: FaStar },
-    ];
+    const [stats, setStats] = useState([
+        { label: "Total Commits", value: "Loading...", icon: FaGithub },
+        { label: "Pull Requests", value: "Loading...", icon: FaCodeBranch },
+        { label: "Stars Earned", value: "Loading...", icon: FaStar },
+    ]);
+
+    useEffect(() => {
+        const fetchGitHubStats = async () => {
+            try {
+                const response = await fetch('/api/github-stats');
+                const data = await response.json();
+                
+                if (data.error) {
+                    // Use fallback values on error
+                    setStats([
+                        { label: "Total Commits", value: "2,500+", icon: FaGithub },
+                        { label: "Pull Requests", value: "140+", icon: FaCodeBranch },
+                        { label: "Stars Earned", value: "350+", icon: FaStar },
+                    ]);
+                } else {
+                    setStats([
+                        { label: "Total Commits", value: data.commits > 0 ? `${data.commits.toLocaleString()}+` : "Calculating...", icon: FaGithub },
+                        { label: "Pull Requests", value: data.pullRequests.toLocaleString(), icon: FaCodeBranch },
+                        { label: "Stars Earned", value: data.stars.toLocaleString(), icon: FaStar },
+                    ]);
+                }
+            } catch (error) {
+                console.error('Failed to fetch GitHub stats:', error);
+                // Use fallback values on error
+                setStats([
+                    { label: "Total Commits", value: "2,500+", icon: FaGithub },
+                    { label: "Pull Requests", value: "140+", icon: FaCodeBranch },
+                    { label: "Stars Earned", value: "350+", icon: FaStar },
+                ]);
+            }
+        };
+
+        fetchGitHubStats();
+    }, []);
 
     return (
         <section className="py-32 bg-obsidian-950">
