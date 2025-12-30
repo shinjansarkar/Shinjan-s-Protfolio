@@ -1,136 +1,108 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { FaDocker, FaNodeJs, FaAws, FaGithub, FaExternalLinkAlt, FaCode } from 'react-icons/fa';
-import { SiNginx, SiGitlab } from 'react-icons/si';
+import { motion } from "framer-motion";
+import { FaDocker, FaGithub, FaExternalLinkAlt, FaCode } from "react-icons/fa";
+import { SiNginx } from "react-icons/si";
+
+const ProjectCard = ({ project, index }: { project: any; index: number }) => {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ delay: index * 0.1 }}
+            className="group relative h-full bg-obsidian-950 border border-obsidian-800 p-8 rounded-2xl overflow-hidden hover:border-electric-blue/50 transition-all duration-300 hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.3)]"
+        >
+            {/* Simple CSS Spotlight via gradient background on hover */}
+            <div className="absolute inset-0 bg-gradient-to-br from-electric-blue/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+            <div className="relative z-10 flex justify-between items-start mb-6">
+                <div className="p-3 bg-obsidian-900/50 backdrop-blur-md rounded-lg text-white border border-white/5">
+                    <project.icon size={24} />
+                </div>
+                <div className="flex gap-4">
+                    {project.github !== "#" && (
+                        <a href={project.github} className="text-obsidian-400 hover:text-white transition-colors">
+                            <FaGithub size={20} />
+                        </a>
+                    )}
+                    {project.link !== "#" && (
+                        <a href={project.link} className="text-obsidian-400 hover:text-white transition-colors">
+                            <FaExternalLinkAlt size={18} />
+                        </a>
+                    )}
+                </div>
+            </div>
+
+            <h4 className="relative z-10 text-2xl font-bold text-white mb-3 group-hover:text-electric-blue transition-colors">
+                {project.title}
+            </h4>
+            <p className="relative z-10 text-obsidian-300 mb-6 line-clamp-2 leading-relaxed text-sm">
+                {project.description}
+            </p>
+
+            <div className="relative z-10 flex flex-wrap gap-2 mt-auto">
+                {project.tech.map((t: string, i: number) => (
+                    <span key={i} className="text-[10px] uppercase tracking-wider font-bold px-3 py-1 bg-obsidian-900 text-obsidian-200 rounded-full border border-obsidian-800">
+                        {t}
+                    </span>
+                ))}
+            </div>
+        </motion.div>
+    );
+};
 
 const Projects = () => {
     const projects = [
         {
             title: "Auto Docker",
-            description: "AI-powered VS Code extension that automatically generates Dockerfiles with Nginx support for frontend, backend, and full-stack applications. Streamlines containerization workflow for developers.",
-            tech: ["VS Code Extension", "AI", "Docker", "Nginx", "TypeScript"],
-            icon: FaCode,
-            color: "neon-blue",
-            link: "#",
-            github: "#"
-        },
-        {
-            title: "Dockerized Node.js To-Do App",
-            description: "Developed a lightweight and portable to-do application using Node.js, containerized with Docker for consistency across environments. Published optimized Docker image on Docker Hub, enabling seamless deployment and enhanced scalability.",
-            tech: ["Docker", "Node.js", "Docker Hub", "CI/CD", "AWS", "EC2"],
+            description: "VS Code Extension to auto-detect project types & generate optimized Dockerfiles.",
+            tech: ["Typescript", "Docker", "Automation"],
             icon: FaDocker,
-            color: "neon-purple",
             link: "#",
-            github: "#"
+            github: "https://github.com/shinjansarkar/auto-docker", // Assuming link pattern or placeholder
         },
         {
-            title: "Collaborative Notepad",
-            description: "Real-time collaborative notepad with WebSocket-based synchronization enabling seamless multi-user editing. Deployed using Docker and Nginx with GitLab CI/CD for automated, scalable deployments.",
-            tech: ["Docker", "GitLab CI/CD", "Nginx", "WebSocket", "Real-time"],
-            icon: SiNginx,
-            color: "neon-green",
-            link: "https://collaborative-notepad-1.onrender.com/",
-            github: "#"
-        },
-        {
-            title: "RCC Coverage Website",
-            description: "Built the official website for the Coverage team of RCC Institute of Information Technology in collaboration with a college senior. Modern, responsive web application deployed on Vercel.",
-            tech: ["Next.js", "React", "Vercel", "Web Development"],
-            icon: FaGithub,
-            color: "neon-pink",
+            title: "RCC Coverage",
+            description: "Event resource portal for RCC Coverage Team with role-based access.",
+            tech: ["React", "Supabase", "Vercel"],
+            icon: FaCode,
             link: "https://rcciit-coverage.vercel.app/",
-            github: "#"
-        }
+            github: "https://github.com/shinjansarkar",
+        },
+        {
+            title: "MERN Docker Blog",
+            description: "Containerized MERN blog with Nginx reverse proxy and multi-stage builds.",
+            tech: ["Docker", "Nginx", "EC2"],
+            icon: SiNginx,
+            link: "#",
+            github: "https://github.com/shinjansarkar",
+        },
+        {
+            title: "Collab Notepad",
+            description: "Real-time collaborative editor with WebSockets and CI/CD pipelines.",
+            tech: ["GitLab CI", "Redis", "Nginx"],
+            icon: FaGithub,
+            link: "https://collaborative-notepad-1.onrender.com/",
+            github: "https://github.com/shinjansarkar",
+        },
     ];
 
     return (
-        <section id="projects" className="relative py-20 overflow-hidden">
+        <section id="projects" className="relative py-32 bg-obsidian-950">
             <div className="container mx-auto px-6">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
-                >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                        Featured <span className="text-neon-blue text-neon-glow">Projects</span>
+                <div className="mb-20">
+                    <h2 className="text-xs font-bold tracking-[0.2em] text-electric-blue uppercase mb-4">
+                        // Selected Works
                     </h2>
-                    <div className="w-24 h-1 bg-neon-blue mx-auto rounded-full neon-glow-blue" />
-                </motion.div>
+                    <h3 className="text-4xl md:text-6xl font-black text-white tracking-tight">
+                        Engineering <br /> <span className="text-obsidian-500">Excellence.</span>
+                    </h3>
+                </div>
 
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {projects.map((project, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            whileHover={{ y: -10 }}
-                            className="glass p-6 rounded-xl border border-gray-800 hover:border-neon-blue transition-all duration-300 group relative overflow-hidden"
-                        >
-                            {/* Background Gradient */}
-                            <div className={`absolute inset-0 bg-gradient-to-br from-${project.color}/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity`} />
-
-                            {/* Content */}
-                            <div className="relative z-10">
-                                {/* Icon */}
-                                <div className={`w-16 h-16 rounded-lg bg-${project.color}/10 flex items-center justify-center mb-4 text-${project.color} group-hover:scale-110 transition-transform`}>
-                                    <project.icon size={32} />
-                                </div>
-
-                                {/* Title */}
-                                <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-neon-blue transition-colors">
-                                    {project.title}
-                                </h3>
-
-                                {/* Description */}
-                                <p className="text-gray-400 text-sm leading-relaxed mb-4">
-                                    {project.description}
-                                </p>
-
-                                {/* Tech Stack */}
-                                <div className="flex flex-wrap gap-2 mb-4">
-                                    {project.tech.map((tech, i) => (
-                                        <span
-                                            key={i}
-                                            className={`px-3 py-1 text-xs rounded-full bg-${project.color}/10 text-${project.color} border border-${project.color}/20`}
-                                        >
-                                            {tech}
-                                        </span>
-                                    ))}
-                                </div>
-
-                                {/* Links */}
-                                <div className="flex gap-4">
-                                    {project.link && project.link !== "#" && (
-                                        <motion.a
-                                            href={project.link}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            whileHover={{ scale: 1.05 }}
-                                            className="flex items-center gap-2 text-sm text-neon-blue hover:text-neon-green transition-colors"
-                                        >
-                                            <FaExternalLinkAlt size={14} />
-                                            Live Demo
-                                        </motion.a>
-                                    )}
-                                    {project.github && project.github !== "#" && (
-                                        <motion.a
-                                            href={project.github}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            whileHover={{ scale: 1.05 }}
-                                            className="flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors"
-                                        >
-                                            <FaGithub size={14} />
-                                            Source Code
-                                        </motion.a>
-                                    )}
-                                </div>
-                            </div>
-                        </motion.div>
+                        <ProjectCard key={index} project={project} index={index} />
                     ))}
                 </div>
             </div>

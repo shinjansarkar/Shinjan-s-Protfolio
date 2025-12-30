@@ -5,16 +5,12 @@ import Skills from '@/components/Skills';
 import Experience from '@/components/Experience';
 import Projects from '@/components/Projects';
 import Contributions from '@/components/Contributions';
-import GithubStats from '@/components/GithubStats';
-import Hobbies from '@/components/Hobbies';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
-import ParticleBackground from '@/components/ParticleBackground';
 
 export default function Home() {
     return (
-        <main className="min-h-screen bg-dark-bg text-white selection:bg-neon-blue selection:text-dark-bg">
-            <ParticleBackground />
+        <main className="min-h-screen bg-obsidian-950 text-white selection:bg-electric-cyan/30 selection:text-electric-cyan">
             <Navbar />
             <Hero />
             <About />
@@ -22,8 +18,6 @@ export default function Home() {
             <Experience />
             <Projects />
             <Contributions />
-            <GithubStats />
-            <Hobbies />
             <Contact />
             <Footer />
         </main>

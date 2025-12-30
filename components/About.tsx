@@ -1,108 +1,128 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { FaServer, FaCloud, FaCode, FaTerminal } from 'react-icons/fa';
+import { motion } from "framer-motion";
+import { FaServer, FaCloud, FaCode, FaTerminal } from "react-icons/fa";
 
 const About = () => {
-    return (
-        <section id="about" className="relative py-20 overflow-hidden">
-            <div className="container mx-auto px-6">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
-                >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4">
-                        <span className="text-white">About </span>
-                        <span className="text-neon-blue text-neon-glow">Me</span>
-                    </h2>
-                    <div className="w-24 h-1 bg-neon-blue mx-auto rounded-full neon-glow-blue" />
-                </motion.div>
+    const cards = [
+        {
+            icon: FaServer,
+            title: "Docker & K8s",
+            desc: "Container orchestration at scale.",
+            color: "text-blue-400",
+        },
+        {
+            icon: FaCloud,
+            title: "AWS Architecture",
+            desc: "Building resilient cloud infra.",
+            color: "text-orange-400",
+        },
+        {
+            icon: FaCode,
+            title: "CI/CD Pipelines",
+            desc: "Automating workflows with GitLab.",
+            color: "text-purple-400",
+        },
+        {
+            icon: FaTerminal,
+            title: "IaC & Scripting",
+            desc: "Terraform, Ansible, and Bash.",
+            color: "text-green-400",
+        },
+    ];
 
-                <div className="grid md:grid-cols-2 gap-12 items-center">
-                    {/* Left Side - Terminal Window */}
+    return (
+        <section id="about" className="relative py-32 bg-obsidian-950">
+            <div className="container mx-auto px-6">
+                <div className="grid lg:grid-cols-2 gap-20 items-center">
+                    {/* Left: Narrative */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
+                        viewport={{ once: true, margin: "-100px" }}
                         transition={{ duration: 0.8 }}
-                        className="relative"
                     >
-                        <div className="glass rounded-xl overflow-hidden border border-gray-700 shadow-2xl">
-                            {/* Terminal Header */}
-                            <div className="bg-gray-900 px-4 py-2 flex items-center gap-2 border-b border-gray-800">
-                                <div className="w-3 h-3 rounded-full bg-red-500" />
-                                <div className="w-3 h-3 rounded-full bg-yellow-500" />
-                                <div className="w-3 h-3 rounded-full bg-green-500" />
-                                <span className="ml-2 text-xs text-gray-400 font-mono">user@devops-portfolio:~/about</span>
-                            </div>
-
-                            {/* Terminal Content */}
-                            <div className="p-6 font-mono text-sm md:text-base bg-dark-bg/90 min-h-[300px]">
-                                <div className="space-y-4">
-                                    <div>
-                                        <span className="text-neon-green">➜</span> <span className="text-neon-blue">~</span> <span className="text-white">whoami</span>
-                                        <p className="text-gray-300 mt-2">
-                                            BCA Student & DevOps Enthusiast with hands-on experience in Cloud and DevOps practices.
-                                            Passionate about CI/CD pipelines, Docker, AWS, and automation.
-                                        </p>
-                                    </div>
-
-                                    <div>
-                                        <span className="text-neon-green">➜</span> <span className="text-neon-blue">~</span> <span className="text-white">cat mission.txt</span>
-                                        <p className="text-gray-300 mt-2">
-                                            To build and deploy scalable cloud infrastructure using modern DevOps tools
-                                            and practices, ensuring seamless CI/CD workflows and efficient deployments.
-                                        </p>
-                                    </div>
-
-                                    <div>
-                                        <span className="text-neon-green">➜</span> <span className="text-neon-blue">~</span> <span className="text-white">ls -la traits/</span>
-                                        <ul className="mt-2 space-y-1 text-gray-300">
-                                            <li>drwx------ 1 user user <span className="text-neon-purple">Quick_Learner</span></li>
-                                            <li>drwx------ 1 user user <span className="text-neon-purple">Hands_On_Practitioner</span></li>
-                                            <li>drwx------ 1 user user <span className="text-neon-purple">Team_Collaborator</span></li>
-                                        </ul>
-                                    </div>
-
-                                    <div className="animate-pulse">
-                                        <span className="text-neon-green">➜</span> <span className="text-neon-blue">~</span> <span className="inline-block w-2 h-4 bg-gray-400 ml-1 align-middle" />
-                                    </div>
-                                </div>
-                            </div>
+                        <h2 className="text-sm font-bold tracking-widest text-obsidian-300 uppercase mb-4">
+              // Who I Am
+                        </h2>
+                        <h3 className="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight">
+                            Bridging the gap between <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-electric-blue to-electric-purple">
+                                development
+                            </span>{" "}
+                            and operations.
+                        </h3>
+                        <div className="space-y-6 text-lg text-obsidian-200 leading-relaxed">
+                            <p>
+                                I am a DevOps enthusiast passionate about automating infrastructure
+                                and ensuring reliability. My focus is on building scalable systems
+                                using tools like Docker, Kubernetes, and Terraform.
+                            </p>
+                            <p>
+                                From setting up rigorous CI/CD pipelines to optimizing cloud costs
+                                on AWS, I enjoy the challenge of making complex systems run
+                                effortlessly.
+                            </p>
                         </div>
 
-                        {/* Decorative Elements behind terminal */}
-                        <div className="absolute -z-10 top-10 -left-10 w-full h-full border border-neon-blue/20 rounded-xl" />
-                        <div className="absolute -z-10 -bottom-10 -right-10 w-full h-full border border-neon-purple/20 rounded-xl" />
+                        {/* Certifications (Minimal) */}
+                        <div className="mt-8 space-y-2">
+                            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-3">Certifications</h4>
+                            <ul className="text-obsidian-300 text-sm space-y-1">
+                                <li className="flex items-center gap-2">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-electric-cyan"></span>
+                                    DevOps Training & Internship – NITI Aayog
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-obsidian-600"></span>
+                                    Docker Basic Unleashed – Udemy
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-obsidian-600"></span>
+                                    Linux Fundamentals – Udemy
+                                </li>
+                                <li className="flex items-center gap-2">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-obsidian-600"></span>
+                                    Python for Beginners – Udemy
+                                </li>
+                            </ul>
+                        </div>
+
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.5 }}
+                            className="mt-12 p-6 glass-panel rounded-xl border-l-4 border-electric-cyan"
+                        >
+                            <code className="text-sm text-electric-cyan min-w-[200px] block">
+                                $ echo "Let's build something scalable."
+                            </code>
+                        </motion.div>
                     </motion.div>
 
-                    {/* Right Side - Info Cards */}
-                    <div className="space-y-6">
-                        {[
-                            { icon: FaServer, title: "Containerization", desc: "Building and deploying applications using Docker and Docker Hub." },
-                            { icon: FaCloud, title: "Cloud Platforms", desc: "Working with AWS services including EC2 and S3 for scalable deployments." },
-                            { icon: FaCode, title: "CI/CD Pipelines", desc: "Implementing automated deployments with GitLab CI/CD and GitHub integration." },
-                            { icon: FaTerminal, title: "Scripting & Automation", desc: "Automating tasks with Bash, Shell, and Python scripting." }
-                        ].map((item, index) => (
+                    {/* Right: Bento Grid of Skills */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {cards.map((card, index) => (
                             <motion.div
                                 key={index}
-                                initial={{ opacity: 0, x: 50 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-50px" }}
                                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                                whileHover={{ scale: 1.02, x: 10 }}
-                                className="glass p-4 rounded-lg flex items-start gap-4 hover:border-neon-blue transition-all cursor-default"
+                                whileHover={{ y: -5 }}
+                                className="group relative p-8 glass-panel rounded-2xl hover:bg-obsidian-800/50 transition-colors"
                             >
-                                <div className="p-3 rounded-lg bg-dark-bg border border-gray-800 text-neon-blue">
-                                    <item.icon size={24} />
+                                <div
+                                    className={`mb-6 p-4 rounded-xl bg-obsidian-900 w-fit ${card.color} group-hover:scale-110 transition-transform duration-300`}
+                                >
+                                    <card.icon size={28} />
                                 </div>
-                                <div>
-                                    <h3 className="text-xl font-bold text-white mb-1">{item.title}</h3>
-                                    <p className="text-gray-400 text-sm">{item.desc}</p>
-                                </div>
+                                <h4 className="text-xl font-bold text-white mb-2">{card.title}</h4>
+                                <p className="text-obsidian-300">{card.desc}</p>
+
+                                {/* Hover Glow */}
+                                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                             </motion.div>
                         ))}
                     </div>

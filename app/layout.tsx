@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
 import "./globals.css";
-
-const inter = Inter({
-    subsets: ["latin"],
-    weight: ['300', '400', '500', '600', '700', '800'],
-    variable: '--font-inter',
-});
 
 export const metadata: Metadata = {
     title: "Shinjan Sarkar | DevOps & Cloud Enthusiast",
@@ -26,12 +20,12 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className={inter.variable}>
+        <html lang="en" className={GeistSans.className}>
             <head>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
             </head>
-            <body className={`${inter.className} antialiased`}>
+            <body className="antialiased bg-obsidian-950 text-white selection:bg-electric-cyan/30 selection:text-electric-cyan">
                 {children}
             </body>
         </html>
