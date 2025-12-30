@@ -1,4 +1,4 @@
-# DevOps Engineer Portfolio
+# DevOps/Cloud Engineer Portfolio 
 
 A futuristic, high-tech portfolio website designed for DevOps Engineers, built with Next.js, React Three Fiber, and Tailwind CSS.
 
