@@ -46,8 +46,10 @@ const Contributions = () => {
     }, []);
 
     return (
-        <section className="py-16 md:py-32 bg-obsidian-950">
-            <div className="container mx-auto px-4 md:px-6 max-w-5xl">
+        <section className="relative py-16 md:py-32 bg-obsidian-950 overflow-hidden">
+            {/* Subtle Light Gradient Background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-obsidian-900/10 to-white/0 pointer-events-none" />
+            <div className="container mx-auto px-4 md:px-6 max-w-5xl relative z-10">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 border-y border-obsidian-900 divide-y md:divide-y-0 md:divide-x divide-obsidian-900">
                     {stats.map((stat, index) => (
                         <motion.div

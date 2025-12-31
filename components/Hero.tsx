@@ -12,14 +12,15 @@ const Hero = () => {
     const firstName = "SHINJAN";
     const lastName = "SARKAR";
 
+    // Only enable mouse move effects on desktop
     useEffect(() => {
+        if (window.innerWidth < 768) return;
         const handleMouseMove = (e: MouseEvent) => {
             setMousePosition({
                 x: (e.clientX / window.innerWidth - 0.5) * 20,
                 y: (e.clientY / window.innerHeight - 0.5) * 20,
             });
         };
-
         window.addEventListener("mousemove", handleMouseMove);
         return () => window.removeEventListener("mousemove", handleMouseMove);
     }, []);
@@ -38,83 +39,9 @@ const Hero = () => {
     };
 
     return (
-        <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-24 md:pt-20 overflow-hidden">
-            {/* Subtle Light Gradient Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-obsidian-900/10 to-white/0 pointer-events-none z-0" />
-            {/* Enhanced Animated Background */}
-            <div className="absolute inset-0 bg-obsidian-950 z-0">
-                {/* Multiple Glow Orbs */}
-                <motion.div 
-                    className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[800px] h-[400px] md:h-[800px] bg-electric-blue/10 rounded-full blur-[120px]"
-                    animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [0.3, 0.5, 0.3],
-                    }}
-                    transition={{
-                        duration: 8,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                />
-                <motion.div 
-                    className="absolute top-1/4 right-1/4 w-[300px] md:w-[600px] h-[300px] md:h-[600px] bg-electric-purple/10 rounded-full blur-[100px]"
-                    animate={{
-                        scale: [1.2, 1, 1.2],
-                        opacity: [0.2, 0.4, 0.2],
-                    }}
-                    transition={{
-                        duration: 10,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                />
-                <motion.div 
-                    className="absolute bottom-1/4 left-1/4 w-[250px] md:w-[500px] h-[250px] md:h-[500px] bg-electric-cyan/10 rounded-full blur-[90px]"
-                    animate={{
-                        scale: [1, 1.3, 1],
-                        opacity: [0.25, 0.45, 0.25],
-                    }}
-                    transition={{
-                        duration: 12,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                />
-
-                {/* Floating Grid */}
-                <div className="absolute inset-0 opacity-5">
-                    <div 
-                        className="absolute inset-0"
-                        style={{
-                            backgroundImage: 'linear-gradient(rgba(0, 240, 255, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.3) 1px, transparent 1px)',
-                            backgroundSize: '50px 50px',
-                            transform: `translate(${mousePosition.x}px, ${mousePosition.y}px)`
-                        }}
-                    />
-                </div>
-
-                {/* Floating Particles */}
-                {[...Array(6)].map((_, i) => (
-                    <motion.div
-                        key={i}
-                        className="absolute w-2 h-2 bg-electric-cyan rounded-full"
-                        style={{
-                            left: `${15 + i * 15}%`,
-                            top: `${20 + (i % 3) * 25}%`,
-                        }}
-                        animate={{
-                            y: [0, -30, 0],
-                            opacity: [0, 1, 0],
-                            scale: [0, 1, 0],
-                        }}
-                        transition={{
-                            duration: 4 + i,
-                            repeat: Infinity,
-                            delay: i * 0.5,
-                        }}
-                    />
-                ))}
-            </div>
+        <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-24 md:pt-20 overflow-hidden bg-obsidian-950">
+            {/* Subtle Light Gradient Background (Theme Consistency) */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-obsidian-900/10 to-white/0 pointer-events-none" />
 
             <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
                 {/* Availability Badge with Animation */}

@@ -11,7 +11,7 @@ const Experience = () => {
             role: "Summer Intern (DevOps)",
             company: "Geogo Techsolution",
             period: "March 2025 – June 2025",
-            duration: "4 months",
+                duration: "3 months",
             description: "Gained hands-on experience in Cloud and DevOps practices including CI/CD pipelines, Docker, AWS, and Terraform while working on real-world deployment workflows.",
             highlights: [
                 "Implemented CI/CD pipelines reducing deployment time by 40%",
@@ -28,7 +28,7 @@ const Experience = () => {
             role: "Summer Intern (DevOps)",
             company: "Indian Institute of Internship",
             period: "June 2024 – July 2024",
-            duration: "2 months",
+                duration: "1 month",
             description: "Learned and applied Linux, Shell scripting, and Docker while completing hands-on tasks and project simulations.",
             highlights: [
                 "Completed 20+ hands-on DevOps projects",
@@ -179,7 +179,7 @@ const Experience = () => {
                                                             </span>
                                                         </div>
                                                         <div className="px-4 py-2 bg-obsidian-900/80 border border-obsidian-800 rounded-lg text-center">
-                                                            <span className="text-xs font-bold text-obsidian-400">
+                                                            <span className="text-xs font-bold text-obsidian-200">
                                                                 {exp.duration}
                                                             </span>
                                                         </div>

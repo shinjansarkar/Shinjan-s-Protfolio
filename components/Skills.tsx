@@ -115,33 +115,13 @@ const Skills = () => {
                                                 {/* Skill Header */}
                                                 <div className="flex items-center justify-between mb-2">
                                                     <div className="flex items-center gap-3">
-                                                        <div className={`${category.iconColor} transition-transform group-hover/skill:scale-110 duration-300`}>
+                                                        <div className={`${category.iconColor} transition-transform group-hover/skill:scale-110 duration-300 bg-obsidian-900/60 p-2 rounded-lg`}>
                                                             <skill.icon size={20} />
                                                         </div>
-                                                        <span className="text-sm font-medium text-white">
+                                                        <span className="text-sm font-medium text-white group-hover/skill:text-electric-cyan transition-colors duration-300">
                                                             {skill.name}
                                                         </span>
                                                     </div>
-                                                    <span className="text-xs font-bold text-obsidian-400 group-hover/skill:text-electric-cyan transition-colors">
-                                                        {skill.level}%
-                                                    </span>
-                                                </div>
-
-                                                {/* Progress Bar */}
-                                                <div className="relative h-1.5 bg-obsidian-900 rounded-full overflow-hidden">
-                                                    <motion.div
-                                                        initial={{ width: 0 }}
-                                                        whileInView={{ width: `${skill.level}%` }}
-                                                        viewport={{ once: true }}
-                                                        transition={{ 
-                                                            delay: categoryIndex * 0.15 + skillIndex * 0.1 + 0.2,
-                                                            duration: 1,
-                                                            ease: "easeOut"
-                                                        }}
-                                                        className={`h-full bg-gradient-to-r ${category.gradient.replace('/20', '')} rounded-full relative shadow-lg shadow-electric-cyan/30`}
-                                                    >
-                                                        <div className="absolute inset-0 bg-white/20" />
-                                                    </motion.div>
                                                 </div>
                                             </motion.div>
                                         ))}
