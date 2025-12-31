@@ -68,7 +68,7 @@ const Experience = () => {
                         transition={{ delay: 0.1 }}
                         className="text-3xl md:text-5xl lg:text-6xl font-black text-white tracking-tight mb-4"
                     >
-                        Work <span className="text-obsidian-100">Experience</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-electric-blue to-electric-cyan">Work Experience</span>
                     </motion.h3>
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
