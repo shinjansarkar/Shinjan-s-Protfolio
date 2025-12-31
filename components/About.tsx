@@ -32,9 +32,11 @@ const About = () => {
     ];
 
     return (
-        <section id="about" className="relative py-32 bg-obsidian-950">
-            <div className="container mx-auto px-6 max-w-7xl">
-                <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <section id="about" className="relative py-16 md:py-32 bg-obsidian-950 overflow-hidden">
+            {/* Subtle Light Gradient Background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-obsidian-900/10 to-white/0 pointer-events-none z-0" />
+            <div className="container mx-auto px-4 md:px-6 max-w-7xl">
+                <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
                     {/* Left: Narrative */}
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}

@@ -12,6 +12,11 @@ export const metadata: Metadata = {
         description: "Explore my journey in DevOps, Cloud, and Automation",
         type: "website",
     },
+    viewport: {
+        width: "device-width",
+        initialScale: 1,
+        maximumScale: 5,
+    },
 };
 
 export default function RootLayout({
