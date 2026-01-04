@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 import { FaServer, FaCloud, FaCode, FaTerminal } from "react-icons/fa";
 
 const About = () => {
@@ -67,28 +68,6 @@ const About = () => {
                             </p>
                         </div>
 
-                        {/* Certifications (Minimal) */}
-                        <div className="mt-8 space-y-2">
-                            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-3">Certifications</h4>
-                            <ul className="text-obsidian-300 text-sm space-y-1">
-                                <li className="flex items-center gap-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-electric-cyan"></span>
-                                    DevOps Training & Internship – NITI Aayog
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-obsidian-600"></span>
-                                    Docker Basic Unleashed – Udemy
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-obsidian-600"></span>
-                                    Linux Fundamentals – Udemy
-                                </li>
-                                <li className="flex items-center gap-2">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-obsidian-600"></span>
-                                    Python for Beginners – Udemy
-                                </li>
-                            </ul>
-                        </div>
 
                         <motion.div
                             initial={{ opacity: 0 }}
