@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 
 export const metadata: Metadata = {
-    title: "Shinjan Sarkar | DevOps & Cloud Enthusiast",
-    description: "Portfolio of Shinjan Sarkar - DevOps and Cloud Enthusiast specializing in Docker, AWS, CI/CD, GitLab, and Infrastructure Automation",
-    keywords: ["DevOps", "Cloud Engineer", "AWS", "Docker", "CI/CD", "GitLab", "Bash", "Python", "Shinjan Sarkar"],
+    title: "Shinjan Sarkar — Founding Engineer & DevOps Architect",
+    description: "I build the infrastructure that makes products scale. Founding Engineer at Bechohub. Specializing in cloud architecture, Kubernetes, CI/CD, and backend systems that don't break at 3 AM.",
+    keywords: ["DevOps Engineer", "Cloud Architect", "Kubernetes", "AWS", "Docker", "CI/CD", "Backend Engineer", "Founding Engineer", "Bechohub", "Shinjan Sarkar"],
     authors: [{ name: "Shinjan Sarkar" }],
     openGraph: {
-        title: "Shinjan Sarkar - DevOps Portfolio",
-        description: "Explore my journey in DevOps, Cloud, and Automation",
+        title: "Shinjan Sarkar — Founding Engineer & DevOps Architect",
+        description: "I build the infrastructure that makes products scale. Founding Engineer at Bechohub.",
         type: "website",
     },
     viewport: {
@@ -25,13 +24,13 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className={GeistSans.className}>
+        <html lang="en">
             <head>
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-                <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap" rel="stylesheet" />
+                <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
             </head>
-            <body className="antialiased bg-obsidian-950 text-white selection:bg-electric-cyan/30 selection:text-electric-cyan">
+            <body className="antialiased bg-zinc-950 text-zinc-50 selection:bg-sky-500/30 selection:text-sky-400">
                 {children}
             </body>
         </html>

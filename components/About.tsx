@@ -1,112 +1,85 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { FaServer, FaCloud, FaCode, FaTerminal } from "react-icons/fa";
+
+const fadeUp = (delay = 0) => ({
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true, margin: "-100px" },
+    transition: { delay, duration: 0.8, ease: [0.16, 1, 0.3, 1] },
+});
 
 const About = () => {
-    const cards = [
-        {
-            icon: FaServer,
-            title: "Docker & K8s",
-            desc: "Container orchestration at scale.",
-            color: "text-blue-400",
-        },
-        {
-            icon: FaCloud,
-            title: "AWS Architecture",
-            desc: "Building resilient cloud infra.",
-            color: "text-orange-400",
-        },
-        {
-            icon: FaCode,
-            title: "CI/CD Pipelines",
-            desc: "Automating workflows with GitLab.",
-            color: "text-purple-400",
-        },
-        {
-            icon: FaTerminal,
-            title: "IaC & Scripting",
-            desc: "Terraform, Ansible, and Bash.",
-            color: "text-green-400",
-        },
-    ];
-
     return (
-        <section id="about" className="relative py-16 md:py-32 bg-obsidian-950 overflow-hidden">
-            {/* Subtle Light Gradient Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-obsidian-900/10 to-white/0 pointer-events-none z-0" />
-            <div className="container mx-auto px-4 md:px-6 max-w-7xl">
-                <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-                    {/* Left: Narrative */}
-                    <motion.div
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-100px" }}
-                        transition={{ duration: 0.8 }}
-                    >
-                        <h2 className="text-sm font-bold tracking-widest text-obsidian-300 uppercase mb-4">
-              // Who I Am
-                        </h2>
-                        <h3 className="text-3xl md:text-5xl font-bold text-white mb-8 leading-tight">
-                            Bridging the gap between <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-electric-blue to-electric-purple">
-                                development
-                            </span>{" "}
-                            and operations.
-                        </h3>
-                        <div className="space-y-6 text-lg text-obsidian-200 leading-relaxed">
-                            <p>
-                                I am a DevOps enthusiast passionate about automating infrastructure
-                                and ensuring reliability. My focus is on building scalable systems
-                                using tools like Docker, Kubernetes, and Terraform.
-                            </p>
-                            <p>
-                                From setting up rigorous CI/CD pipelines to optimizing cloud costs
-                                on AWS, I enjoy the challenge of making complex systems run
-                                effortlessly.
-                            </p>
+        <section id="about" className="relative pt-32 pb-24">
+            <div className="max-w-6xl mx-auto px-6 md:px-12">
+                
+                {/* Section Header */}
+                <motion.div {...fadeUp(0)} className="mb-12 text-center md:text-left">
+                    <h2 className="text-3xl md:text-4xl font-display font-bold text-zinc-100 mb-4 tracking-tight">
+                        About <span className="text-sky-400">Me.</span>
+                    </h2>
+                    <p className="text-zinc-500 font-body max-w-xl mx-auto md:mx-0">
+                        Most engineers ship features. I ship the platform that makes shipping features possible.
+                    </p>
+                </motion.div>
+
+                {/* Bento Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+                    
+                    {/* Main Intro Card */}
+                    <motion.div {...fadeUp(0.1)} className="md:col-span-8 skiper-card p-8 md:p-10 relative overflow-hidden">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
+                        
+                        <div className="relative z-10">
+                            <h3 className="text-xl font-bold text-zinc-100 mb-4 font-display">
+                                The Backbone of Production
+                            </h3>
+                            <div className="space-y-4 text-zinc-400 font-body text-sm leading-relaxed">
+                                <p>
+                                    As the <strong className="text-zinc-200 font-medium">Founding Engineer at Bechohub</strong>, I own the full DevOps lifecycle. From designing containerization strategies to cloud architecture, I build systems that are resilient, scalable, and secure.
+                                </p>
+                                <p>
+                                    Previously, I optimized CI/CD pipelines at Geogo Techsolution, cutting deployment times by 40%. I also created <strong className="text-zinc-200 font-medium">Auto Docker</strong>, a VS Code extension currently saving hours of boilerplate setup for 500+ active developers.
+                                </p>
+                            </div>
                         </div>
-
-
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.5 }}
-                            className="mt-12 p-6 glass-panel rounded-xl border-l-4 border-electric-cyan"
-                        >
-                            <code className="text-sm text-electric-cyan min-w-[200px] block">
-                                $ echo "Let's build something scalable."
-                            </code>
-                        </motion.div>
                     </motion.div>
 
-                    {/* Right: Bento Grid of Skills */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        {cards.map((card, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: "-50px" }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
-                                whileHover={{ y: -5 }}
-                                className="group relative p-8 glass-panel rounded-2xl hover:bg-obsidian-800/50 transition-colors"
-                            >
-                                <div
-                                    className={`mb-6 p-4 rounded-xl bg-obsidian-900 w-fit ${card.color} group-hover:scale-110 transition-transform duration-300`}
-                                >
-                                    <card.icon size={28} />
-                                </div>
-                                <h4 className="text-xl font-bold text-white mb-2">{card.title}</h4>
-                                <p className="text-obsidian-300">{card.desc}</p>
+                    {/* Stats/Highlight Card */}
+                    <motion.div {...fadeUp(0.2)} className="md:col-span-4 skiper-card p-8 md:p-10 flex flex-col justify-center">
+                        <div className="mb-6">
+                            <div className="text-4xl font-bold text-zinc-100 font-display mb-1">500+</div>
+                            <div className="text-xs font-medium text-sky-400 uppercase tracking-wider">Devs using my tools</div>
+                        </div>
+                        <div>
+                            <div className="text-4xl font-bold text-zinc-100 font-display mb-1">40%</div>
+                            <div className="text-xs font-medium text-sky-400 uppercase tracking-wider">Deploy time reduced</div>
+                        </div>
+                    </motion.div>
 
-                                {/* Hover Glow */}
-                                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
-                            </motion.div>
-                        ))}
-                    </div>
+                    {/* Terminal/Code Card */}
+                    <motion.div {...fadeUp(0.3)} className="md:col-span-12 skiper-card p-6 md:p-8 flex flex-col md:flex-row items-center gap-8">
+                        <div className="flex-1 w-full bg-zinc-950/50 rounded-2xl border border-white/5 p-4 md:p-6 font-mono text-xs md:text-sm text-zinc-300">
+                            <div className="flex items-center gap-2 mb-4 pb-4 border-b border-white/5">
+                                <div className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+                                <div className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+                                <div className="w-2.5 h-2.5 rounded-full bg-zinc-700" />
+                                <span className="ml-2 text-zinc-600">server-status.sh</span>
+                            </div>
+                            <p className="mb-2"><span className="text-sky-500">➜</span> <span className="text-zinc-500">~</span> ./check-systems</p>
+                            <p className="text-emerald-400/90 mb-1">✔ Kubernetes Cluster: Healthy (3/3 nodes)</p>
+                            <p className="text-emerald-400/90 mb-1">✔ CI/CD Pipelines: Passing</p>
+                            <p className="text-emerald-400/90 mb-4">✔ Production Database: Synced</p>
+                            <p><span className="text-sky-500">➜</span> <span className="text-zinc-500">~</span> <span className="animate-pulse">_</span></p>
+                        </div>
+                        
+                        <div className="md:w-1/3 text-center md:text-left">
+                            <h4 className="text-lg font-bold text-zinc-100 mb-2 font-display">System Status</h4>
+                            <p className="text-sm text-zinc-400 font-body">Everything automated. Everything monitored. Sleep better at night knowing the infrastructure handles the rest.</p>
+                        </div>
+                    </motion.div>
+
                 </div>
             </div>
         </section>

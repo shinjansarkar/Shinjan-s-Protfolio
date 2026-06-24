@@ -1,235 +1,64 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FaGithub, FaLinkedin, FaArrowDown, FaCode, FaRocket } from "react-icons/fa";
-import Magnetic from "./Magnetic";
-import { useState, useEffect } from "react";
+
+const springUp = (delay = 0) => ({
+    initial: { opacity: 0, y: 50, scale: 0.95 },
+    animate: { opacity: 1, y: 0, scale: 1 },
+    transition: { delay, type: "spring", stiffness: 200, damping: 20 },
+});
 
 const Hero = () => {
-    const [isHovering, setIsHovering] = useState(false);
-    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-    const firstName = "SHINJAN";
-    const lastName = "SARKAR";
-
-    // Only enable mouse move effects on desktop
-    useEffect(() => {
-        if (window.innerWidth < 768) return;
-        const handleMouseMove = (e: MouseEvent) => {
-            setMousePosition({
-                x: (e.clientX / window.innerWidth - 0.5) * 20,
-                y: (e.clientY / window.innerHeight - 0.5) * 20,
-            });
-        };
-        window.addEventListener("mousemove", handleMouseMove);
-        return () => window.removeEventListener("mousemove", handleMouseMove);
-    }, []);
-
-    const letterVariants = {
-        initial: { y: 0 },
-        hover: (i: number) => ({
-            y: [-3, -20, -10, 0],
-            transition: {
-                delay: i * 0.03,
-                duration: 0.8,
-                ease: [0.43, 0.13, 0.23, 0.96],
-                times: [0, 0.3, 0.6, 1],
-            },
-        }),
-    };
-
     return (
-        <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-24 md:pt-20 overflow-hidden bg-obsidian-950">
-            {/* Subtle Light Gradient Background (Theme Consistency) */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-obsidian-900/10 to-white/0 pointer-events-none" />
-
-            <div className="container mx-auto px-4 md:px-6 relative z-10 text-center">
-                {/* Availability Badge with Animation */}
+        <motion.div
+            {...springUp(0.1)}
+            className="py-16 md:py-24 flex flex-col justify-center w-full min-h-[70vh] relative group"
+        >
+            <div className="relative z-10">
                 <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-obsidian-900 to-obsidian-800 border border-electric-cyan/30 backdrop-blur-sm mb-10 shadow-lg shadow-electric-cyan/10"
+                    whileHover={{ scale: 1.05, x: 5 }}
+                    className="inline-flex items-center gap-2 mb-8 cursor-default"
                 >
-                    <span className="relative flex h-3 w-3">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                    <span className="relative flex h-2.5 w-2.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-rose-500" />
                     </span>
-                    <span className="text-xs sm:text-sm font-bold text-white tracking-wide uppercase">
-                        Available for new projects
+                    <span className="text-xs font-bold text-rose-500 tracking-wider uppercase">
+                        Freelancing & breaking pipelines
                     </span>
-                    <FaRocket className="text-electric-cyan" />
                 </motion.div>
 
-                {/* Main Title with Enhanced Effects */}
-                <div className="relative mb-6">
-                    {/* Glowing Background for Title */}
-                    <div className="absolute inset-0 flex items-center justify-center opacity-30 blur-2xl">
-                        <div className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-electric-blue">
-                            {firstName} {lastName}
-                        </div>
-                    </div>
+                <h1 className="font-display font-bold text-zinc-100 leading-[1.05] tracking-tight text-5xl sm:text-6xl md:text-7xl mb-6">
+                    I write code. <br /> Sometimes it even <span className="text-rose-500">deploys.</span>
+                </h1>
 
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.5 }}
-                        onMouseEnter={() => setIsHovering(true)}
-                        onMouseLeave={() => setIsHovering(false)}
-                        className="cursor-pointer relative"
+                <p className="text-zinc-400 font-body leading-relaxed text-lg md:text-xl max-w-2xl mb-10">
+                    Hi, I'm <strong className="text-zinc-200">Shinjan Sarkar</strong>. I have 1 year of DevOps experience (which translates to 10 years in regular developer stress). I also freelance to build websites for clients who "definitely know what they want".
+                </p>
+
+                <div className="flex flex-wrap gap-6 items-center">
+                    <motion.a
+                        whileHover={{ scale: 1.05, x: 5 }}
+                        whileTap={{ scale: 0.95 }}
+                        href="#projects"
+                        className="font-bold text-rose-500 hover:text-rose-400 transition-colors uppercase tracking-widest text-sm flex items-center gap-2"
                     >
-                        <motion.h1
-                            initial={{ opacity: 0, y: 50 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-                            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-obsidian-400 tracking-tighter leading-[1.1] relative"
-                            style={{ 
-                                fontFamily: "'Space Grotesk', sans-serif",
-                                textShadow: '0 0 80px rgba(0, 240, 255, 0.1)'
-                            }}
-                        >
-                            <motion.span
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.6, delay: 0.4 }}
-                                className="inline-block"
-                            >
-                                {firstName.split("").map((letter, i) => (
-                                    <motion.span
-                                        key={`first-${i}`}
-                                        custom={i}
-                                        variants={letterVariants}
-                                        initial="initial"
-                                        animate={isHovering ? "hover" : "initial"}
-                                        className="inline-block hover:text-electric-cyan transition-colors"
-                                    >
-                                        {letter}
-                                    </motion.span>
-                                ))}
-                            </motion.span>
-                            <br />
-                            <motion.span
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.6, delay: 0.6 }}
-                                className="inline-block"
-                            >
-                                {lastName.split("").map((letter, i) => (
-                                    <motion.span
-                                        key={`last-${i}`}
-                                        custom={i}
-                                        variants={letterVariants}
-                                        initial="initial"
-                                        animate={isHovering ? "hover" : "initial"}
-                                        className="inline-block hover:text-electric-cyan transition-colors"
-                                    >
-                                        {letter}
-                                    </motion.span>
-                                ))}
-                            </motion.span>
-                        </motion.h1>
+                        See my 400+ download flex &rarr;
+                    </motion.a>
 
-                        {/* Decorative Line */}
-                        <motion.div
-                            initial={{ width: 0 }}
-                            animate={{ width: "100%" }}
-                            transition={{ delay: 1, duration: 1 }}
-                            className="h-1 bg-gradient-to-r from-transparent via-electric-cyan to-transparent mx-auto mt-8 max-w-md"
-                        />
-                    </motion.div>
+                    <motion.a
+                        whileHover={{ scale: 1.05, x: 5 }}
+                        whileTap={{ scale: 0.95 }}
+                        href="https://medium.com/@shinjansarkar7"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="font-medium text-zinc-400 hover:text-rose-400 transition-colors text-sm flex items-center gap-2"
+                    >
+                        Read my Rants (Medium Blogs)
+                    </motion.a>
                 </div>
-
-                {/* Enhanced Subtitle */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.4, duration: 0.8 }}
-                    className="mb-10 md:mb-12"
-                >
-                    <p className="text-sm sm:text-base md:text-xl lg:text-2xl text-transparent bg-clip-text bg-gradient-to-r from-electric-blue via-white to-electric-cyan font-medium tracking-wider md:tracking-widest uppercase px-4 mb-4">
-                        DevOps Engineer & Cloud Architect
-                    </p>
-                    <div className="flex items-center justify-center gap-4 text-obsidian-400 text-xs sm:text-sm">
-                        <div className="flex items-center gap-2">
-                            <FaCode className="text-electric-cyan" />
-                            <span>Infrastructure as Code</span>
-                        </div>
-                        <span>•</span>
-                        <div className="flex items-center gap-2">
-                            <FaRocket className="text-electric-purple" />
-                            <span>CI/CD Automation</span>
-                        </div>
-                    </div>
-                </motion.div>
-
-                {/* Enhanced CTAs */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6, duration: 0.8 }}
-                    className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 w-full max-w-md mx-auto"
-                >
-                    <Magnetic>
-                        <motion.a
-                            href="#projects"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="group relative inline-block px-8 sm:px-10 py-4 bg-gradient-to-r from-electric-blue to-electric-cyan text-white font-bold text-sm sm:text-base tracking-wide sm:tracking-widest uppercase rounded-full w-full sm:w-auto text-center overflow-hidden shadow-lg shadow-electric-blue/30 hover:shadow-electric-blue/50 transition-shadow"
-                        >
-                            <span className="relative z-10 flex items-center justify-center gap-2">
-                                View Work
-                                <FaArrowDown className="text-xs group-hover:translate-y-1 transition-transform" />
-                            </span>
-                            <div className="absolute inset-0 bg-gradient-to-r from-electric-cyan to-electric-blue opacity-0 group-hover:opacity-100 transition-opacity" />
-                        </motion.a>
-                    </Magnetic>
-
-                    <Magnetic>
-                        <motion.a
-                            href="#contact"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="group relative inline-block px-8 sm:px-10 py-4 bg-transparent border-2 border-electric-cyan/50 text-white font-bold text-sm sm:text-base tracking-wide sm:tracking-widest uppercase rounded-full w-full sm:w-auto text-center hover:bg-electric-cyan/10 hover:border-electric-cyan transition-all"
-                        >
-                            <span className="relative z-10">Contact Me</span>
-                        </motion.a>
-                    </Magnetic>
-                </motion.div>
-
-                {/* Enhanced Social Links */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1, duration: 1 }}
-                    className="mt-16 md:mt-24"
-                >
-                    <div className="flex items-center justify-center gap-6 md:gap-8 mb-6">
-                        <Magnetic>
-                            <motion.a 
-                                href="https://github.com/shinjansarkar" 
-                                target="_blank" 
-                                rel="noreferrer" 
-                                whileHover={{ scale: 1.2, rotate: 5 }}
-                                className="flex items-center justify-center w-12 h-12 rounded-full bg-obsidian-900 border border-obsidian-800 text-obsidian-400 hover:text-white hover:border-electric-cyan hover:bg-obsidian-800 transition-all shadow-lg hover:shadow-electric-cyan/20"
-                            >
-                                <FaGithub size={20} />
-                            </motion.a>
-                        </Magnetic>
-                        <Magnetic>
-                            <motion.a 
-                                href="https://linkedin.com" 
-                                target="_blank" 
-                                rel="noreferrer" 
-                                whileHover={{ scale: 1.2, rotate: -5 }}
-                                className="flex items-center justify-center w-12 h-12 rounded-full bg-obsidian-900 border border-obsidian-800 text-obsidian-400 hover:text-white hover:border-electric-blue hover:bg-obsidian-800 transition-all shadow-lg hover:shadow-electric-blue/20"
-                            >
-                                <FaLinkedin size={20} />
-                            </motion.a>
-                        </Magnetic>
-                    </div>
-                </motion.div>
             </div>
-        </section>
+        </motion.div>
     );
 };
 

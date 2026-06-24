@@ -1,50 +1,74 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FaTwitter, FaEnvelope } from "react-icons/fa";
-import Magnetic from "./Magnetic";
+import { FaEnvelope, FaLinkedin } from "react-icons/fa";
+import { useState } from "react";
+
+const springUp = (delay = 0) => ({
+    initial: { opacity: 0, y: 50, scale: 0.95 },
+    animate: { opacity: 1, y: 0, scale: 1 },
+    transition: { delay, type: "spring", stiffness: 200, damping: 20 },
+});
 
 const Contact = () => {
+    const [hoverCount, setHoverCount] = useState(0);
+
+    const buttonTexts = [
+        "Send an SOS",
+        "Wait, are you a recruiter?",
+        "Do you have a JD?",
+        "Is the salary listed?",
+        "Fine, click me."
+    ];
+
+    const getButtonText = () => {
+        return buttonTexts[Math.min(hoverCount, buttonTexts.length - 1)];
+    };
+
     return (
-        <section id="contact" className="py-20 md:py-40 bg-obsidian-950 flex flex-col items-center justify-center text-center overflow-hidden relative">
-            {/* Subtle Light Gradient Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-obsidian-900/10 to-white/0 pointer-events-none z-0" />
-            <div className="w-full px-4 md:px-6">
-                <motion.p
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="text-electric-blue font-bold tracking-widest uppercase mb-8"
-                >
-                    What's Next?
-                </motion.p>
+        <motion.div 
+            {...springUp(0.7)}
+            className="py-16 md:py-32 flex flex-col justify-center items-center text-center w-full relative group mt-10"
+        >
+            <div className="relative z-10 flex flex-col items-center">
+                <h2 className="text-5xl md:text-7xl font-display font-bold text-zinc-100 mb-6 tracking-tight">
+                    Enough scrolling. <br />
+                    <span className="text-rose-500">Let's talk.</span>
+                </h2>
+                <p className="text-xl text-zinc-400 max-w-lg mb-16 leading-relaxed">
+                    I'm currently open for new opportunities, freelance projects, or just arguing about Docker vs Kubernetes.
+                </p>
 
-                <motion.h2
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-3xl sm:text-5xl md:text-7xl lg:text-9xl font-black text-white tracking-tighter mb-8 md:mb-12"
-                >
-                    LET'S WORK <br className="hidden sm:block" /> TOGETHER.
-                </motion.h2>
-
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                >
-                    <Magnetic>
-                        <a
-                            href="mailto:shinjansarkar268@gmail.com"
-                            className="inline-block px-8 sm:px-12 py-3 sm:py-5 bg-white text-obsidian-950 text-base sm:text-xl font-bold tracking-wide sm:tracking-widest uppercase hover:bg-electric-cyan hover:scale-105 transition-all duration-300 rounded-full"
+                <div className="flex flex-col sm:flex-row gap-8 items-center">
+                    <motion.a 
+                        onHoverStart={() => setHoverCount(prev => prev + 1)}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        href="mailto:shinjansarkar@example.com" 
+                        className="text-lg font-bold text-rose-500 hover:text-rose-400 uppercase tracking-widest transition-colors flex items-center justify-center min-w-[220px]"
+                    >
+                        <motion.span 
+                            key={hoverCount}
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
                         >
-                            Say Hello
-                        </a>
-                    </Magnetic>
-                </motion.div>
-
+                            {getButtonText()}
+                        </motion.span>
+                    </motion.a>
+                    
+                    <motion.a 
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        href="https://www.linkedin.com/in/shinjansarkar/" 
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-lg font-bold text-zinc-500 hover:text-rose-500 uppercase tracking-widest transition-colors flex items-center gap-2"
+                    >
+                        <FaLinkedin /> LinkedIn
+                    </motion.a>
+                </div>
             </div>
-        </section>
+        </motion.div>
     );
 };
 

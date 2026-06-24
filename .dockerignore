@@ -1,0 +1,20 @@
+node_modules
+.git
+*.log
+.vscode
+.DS_Store
+__pycache__
+*.pyc
+venv
+.pytest_cache
+coverage
+dist
+build
+README.md
+
+# Critical entries added by Auto Docker
+.env
+.ssh
+node_modules/
+build/
+dist/

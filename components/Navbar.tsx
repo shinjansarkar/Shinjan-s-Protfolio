@@ -1,177 +1,108 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { FaGithub, FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
-    const [active, setActive] = useState("home");
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const { scrollY } = useScroll();
+    const [hidden, setHidden] = useState(false);
+    const [isTop, setIsTop] = useState(true);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    const navItems = [
-        { name: "Home", id: "home" },
-        { name: "About", id: "about" },
-        { name: "Skills", id: "skills" },
-        { name: "Work", id: "projects" },
-        { name: "Certifications", id: "certifications" },
-        { name: "Contact", id: "contact" },
+    useMotionValueEvent(scrollY, "change", (latest) => {
+        const previous = scrollY.getPrevious() || 0;
+        if (latest > previous && latest > 150) {
+            setHidden(true);
+            setIsMobileMenuOpen(false); // Close mobile menu when hiding navbar
+        } else {
+            setHidden(false);
+        }
+        setIsTop(latest < 50);
+    });
+
+    const links = [
+        { name: "Experience", href: "#experience" },
+        { name: "Skills", href: "#skills" },
+        { name: "Work", href: "#projects" },
     ];
 
-    useEffect(() => {
-        const sections = navItems.map((item) => document.getElementById(item.id));
-
-        const observerOptions = {
-            root: null,
-            rootMargin: "-50% 0px -50% 0px",
-            threshold: 0,
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    setActive(entry.target.id);
-                }
-            });
-        }, observerOptions);
-
-        sections.forEach((section) => {
-            if (section) observer.observe(section);
-        });
-
-        return () => {
-            sections.forEach((section) => {
-                if (section) observer.unobserve(section);
-            });
-        };
-    }, []);
-
-    // Close menu when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (e: MouseEvent) => {
-            const target = e.target as HTMLElement;
-            if (isMenuOpen && !target.closest('nav')) {
-                setIsMenuOpen(false);
-            }
-        };
-
-        if (isMenuOpen) {
-            document.addEventListener('click', handleClickOutside);
-        }
-
-        return () => document.removeEventListener('click', handleClickOutside);
-    }, [isMenuOpen]);
-
-    const handleNavClick = (id: string) => {
-        setActive(id);
-        setIsMenuOpen(false);
-    };
-
     return (
-        <>
-            {/* Desktop & Tablet Navbar */}
-            <div className="fixed top-6 left-0 right-0 z-50 hidden md:flex justify-center pointer-events-none px-4">
-                {/* Subtle Light Gradient Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-obsidian-900/10 to-white/0 pointer-events-none rounded-full" />
-                <motion.nav
-                    initial={{ y: -50, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                    className="glass-nav px-4 md:px-6 py-3 rounded-full flex items-center gap-4 md:gap-8 pointer-events-auto shadow-2xl shadow-obsidian-950/50 relative"
-                >
-                    {navItems.map((item) => (
-                        <a
-                            key={item.id}
-                            href={`#${item.id}`}
-                            onClick={() => setActive(item.id)}
-                            className="relative text-xs md:text-sm font-medium tracking-wide transition-colors duration-300 whitespace-nowrap"
-                        >
-                            <span className={`${active === item.id ? "text-white" : "text-obsidian-300 hover:text-white"}`}>
-                                {item.name}
-                            </span>
-                            {active === item.id && (
-                                <motion.div
-                                    layoutId="nav-pill"
-                                    className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-electric-cyan rounded-full"
-                                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                />
-                            )}
+        <motion.header
+            variants={{
+                visible: { y: 0, opacity: 1 },
+                hidden: { y: "-150%", opacity: 0 },
+            }}
+            animate={hidden ? "hidden" : "visible"}
+            transition={{ duration: 0.35, ease: "easeInOut" }}
+            className={`fixed top-6 left-0 right-0 z-50 flex flex-col items-center px-4 transition-all duration-300 ${isTop ? "py-4" : "py-0"}`}
+        >
+            <nav className="px-4 py-2 flex items-center gap-4 md:gap-6 w-fit mx-auto bg-zinc-950/50 backdrop-blur-md rounded-full border border-zinc-800/50 shadow-lg">
+                
+                <a href="#home" className="text-zinc-100 font-display font-bold text-sm tracking-tight px-2 hover:text-rose-400 transition-colors">
+                    Shinjan.
+                </a>
+
+                {/* Desktop Menu */}
+                <div className="hidden md:flex items-center gap-4 px-4">
+                    {links.map((l, i) => (
+                        <a key={i} href={l.href} className="text-xs font-medium text-zinc-400 hover:text-rose-400 transition-colors duration-300">
+                            {l.name}
                         </a>
                     ))}
-                </motion.nav>
-            </div>
+                </div>
 
-            {/* Mobile Navbar with Hamburger */}
-            <div className="fixed top-0 left-0 right-0 z-50 md:hidden">
-                <motion.div
-                    initial={{ y: -50, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.5 }}
-                    className="glass-nav mx-4 mt-4 px-4 py-3 rounded-2xl flex items-center justify-between pointer-events-auto shadow-2xl shadow-obsidian-950/50"
-                >
-                    {/* Logo/Brand */}
-                    <a href="#home" className="text-lg font-bold text-white tracking-tight">
-                        SS
+                <div className="flex items-center gap-3 md:gap-4 px-2">
+                    <a href="https://github.com/shinjansarkar" target="_blank" rel="noreferrer" className="hidden md:block text-zinc-400 hover:text-white transition-colors">
+                        <FaGithub size={18} />
                     </a>
-
-                    {/* Hamburger Button */}
-                    <button
-                        onClick={() => setIsMenuOpen(!isMenuOpen)}
-                        className="relative w-8 h-8 flex flex-col items-center justify-center gap-1.5 group"
-                        aria-label="Toggle menu"
+                    <a href="#contact" className="px-4 md:px-5 py-2 text-[10px] md:text-[11px] uppercase tracking-wider text-black bg-white hover:scale-105 transition-transform rounded-full font-bold shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)]">
+                        Contact
+                    </a>
+                    
+                    {/* Mobile Menu Toggle Button */}
+                    <button 
+                        className="md:hidden text-zinc-400 hover:text-rose-400 transition-colors p-1"
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
-                        <motion.span
-                            animate={isMenuOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-                            className="w-6 h-0.5 bg-white rounded-full transition-all"
-                        />
-                        <motion.span
-                            animate={isMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-                            className="w-6 h-0.5 bg-white rounded-full transition-all"
-                        />
-                        <motion.span
-                            animate={isMenuOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-                            className="w-6 h-0.5 bg-white rounded-full transition-all"
-                        />
+                        {isMobileMenuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
                     </button>
-                </motion.div>
+                </div>
+            </nav>
 
-                {/* Mobile Menu */}
-                <AnimatePresence>
-                    {isMenuOpen && (
-                        <motion.nav
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.3 }}
-                            className="glass-nav mx-4 mt-2 px-6 py-4 rounded-2xl shadow-2xl shadow-obsidian-950/50"
+            {/* Mobile Dropdown */}
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="md:hidden mt-4 bg-zinc-950/90 backdrop-blur-xl border border-zinc-800 rounded-2xl p-5 flex flex-col gap-4 min-w-[200px] shadow-2xl relative"
+                    >
+                        {links.map((l, i) => (
+                            <a 
+                                key={i} 
+                                href={l.href} 
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="text-sm font-medium text-zinc-300 hover:text-rose-400 transition-colors duration-300"
+                            >
+                                {l.name}
+                            </a>
+                        ))}
+                        <div className="h-px w-full bg-zinc-800/50 my-1" />
+                        <a 
+                            href="https://github.com/shinjansarkar" 
+                            target="_blank" 
+                            rel="noreferrer" 
+                            className="flex items-center gap-2 text-sm font-medium text-zinc-400 hover:text-white transition-colors"
                         >
-                            <div className="flex flex-col gap-4">
-                                {navItems.map((item, index) => (
-                                    <motion.a
-                                        key={item.id}
-                                        href={`#${item.id}`}
-                                        onClick={() => handleNavClick(item.id)}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: index * 0.1 }}
-                                        className="relative text-base font-medium tracking-wide transition-colors duration-300 py-2"
-                                    >
-                                        <span className={`${active === item.id ? "text-white" : "text-obsidian-300"}`}>
-                                            {item.name}
-                                        </span>
-                                        {active === item.id && (
-                                            <motion.div
-                                                layoutId="mobile-nav-pill"
-                                                className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-electric-cyan rounded-full"
-                                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                            />
-                                        )}
-                                    </motion.a>
-                                ))}
-                            </div>
-                        </motion.nav>
-                    )}
-                </AnimatePresence>
-            </div>
-        </>
+                            <FaGithub size={16} /> GitHub
+                        </a>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </motion.header>
     );
 };
 

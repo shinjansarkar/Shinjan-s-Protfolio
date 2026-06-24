@@ -1,78 +1,96 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { FaGithub, FaCodeBranch, FaStar } from "react-icons/fa";
-import { useEffect, useState } from "react";
+import { FaLinkedin, FaMicrophoneAlt } from "react-icons/fa";
 
-const Contributions = () => {
-    const [stats, setStats] = useState([
-        { label: "Total Commits", value: "Loading...", icon: FaGithub },
-        { label: "Pull Requests", value: "Loading...", icon: FaCodeBranch },
-        { label: "Stars Earned", value: "Loading...", icon: FaStar },
-    ]);
+const contributions = [
+    {
+        title: "Speaking Engagement",
+        platform: "LinkedIn",
+        link: "https://www.linkedin.com/feed/update/urn:li:activity:7445910008212656128/",
+        id: "SPK-001",
+        date: "2024"
+    }
+];
 
-    useEffect(() => {
-        const fetchGitHubStats = async () => {
-            try {
-                const response = await fetch('/api/github-stats');
-                const data = await response.json();
-                
-                if (data.error) {
-                    // Use fallback values on error
-                    setStats([
-                        { label: "Total Commits", value: "2,500+", icon: FaGithub },
-                        { label: "Pull Requests", value: "140+", icon: FaCodeBranch },
-                        { label: "Stars Earned", value: "350+", icon: FaStar },
-                    ]);
-                } else {
-                    setStats([
-                        { label: "Total Commits", value: data.commits > 0 ? `${data.commits.toLocaleString()}+` : "Calculating...", icon: FaGithub },
-                        { label: "Pull Requests", value: data.pullRequests.toLocaleString(), icon: FaCodeBranch },
-                        { label: "Stars Earned", value: data.stars.toLocaleString(), icon: FaStar },
-                    ]);
-                }
-            } catch (error) {
-                console.error('Failed to fetch GitHub stats:', error);
-                // Use fallback values on error
-                setStats([
-                    { label: "Total Commits", value: "2,500+", icon: FaGithub },
-                    { label: "Pull Requests", value: "140+", icon: FaCodeBranch },
-                    { label: "Stars Earned", value: "350+", icon: FaStar },
-                ]);
-            }
-        };
-
-        fetchGitHubStats();
-    }, []);
-
+export default function Contributions() {
     return (
-        <section className="relative py-16 md:py-32 bg-obsidian-950 overflow-hidden">
-            {/* Subtle Light Gradient Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-obsidian-900/10 to-white/0 pointer-events-none" />
-            <div className="container mx-auto px-4 md:px-6 max-w-5xl relative z-10">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-12 border-y border-obsidian-900 divide-y md:divide-y-0 md:divide-x divide-obsidian-900">
-                    {stats.map((stat, index) => (
-                        <motion.div
-                            key={index}
-                            initial={{ opacity: 0, y: 20 }}
+        <div className="py-24 relative w-full">
+            <div className="relative z-10 w-full max-w-6xl mx-auto px-4 md:px-0">
+                <div className="mb-16 border-b border-zinc-800 pb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                    <div>
+                        <h2 className="text-5xl md:text-6xl font-display font-bold text-zinc-100 tracking-tighter">
+                            Public <span className="text-rose-500 italic font-serif">Speaking</span>
+                        </h2>
+                        <p className="text-zinc-500 font-mono text-sm mt-4 uppercase tracking-widest">
+                            (People actually listened)
+                        </p>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {contributions.map((item, i) => (
+                        <motion.a 
+                            key={i}
+                            href={item.link}
+                            target="_blank"
+                            rel="noreferrer"
+                            initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: i * 0.1, type: "spring" }}
                             viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className="py-8 md:py-12 md:px-6 lg:px-12 flex flex-col items-center text-center group"
+                            className="relative flex bg-[#0c0c0e] rounded-xl overflow-hidden group shadow-2xl hover:-translate-y-2 transition-transform duration-300 cursor-pointer block"
                         >
-                            <stat.icon className="text-2xl md:text-3xl text-obsidian-600 mb-4 md:mb-6 group-hover:text-electric-blue transition-colors" />
-                            <h3 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-2 tracking-tight group-hover:scale-110 transition-transform duration-300">
-                                {stat.value}
-                            </h3>
-                            <p className="text-sm font-bold text-obsidian-500 uppercase tracking-widest">
-                                {stat.label}
-                            </p>
-                        </motion.div>
+                            {/* Colorful Ticket Edge */}
+                            <div className="w-3 bg-gradient-to-b from-blue-600 to-blue-400 h-full relative">
+                                <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-zinc-950 rounded-full" />
+                            </div>
+
+                            {/* Main Body */}
+                            <div className="flex-grow p-6 md:p-8 border border-l-0 border-zinc-800 rounded-r-xl relative overflow-hidden">
+                                <FaMicrophoneAlt className="absolute -bottom-6 -right-6 text-9xl text-zinc-800/30 group-hover:text-blue-500/10 transition-colors duration-500 rotate-12" />
+                                
+                                <div className="relative z-10 flex flex-col h-full justify-between gap-6">
+                                    <div>
+                                        <div className="flex justify-between items-start mb-2">
+                                            <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest border border-zinc-800 px-2 py-1 rounded flex items-center gap-2 group-hover:border-blue-500/50 group-hover:text-blue-400 transition-colors">
+                                                <FaLinkedin /> {item.platform}
+                                            </p>
+                                            <p className="text-zinc-600 font-mono text-[10px] uppercase tracking-widest">
+                                                {item.date}
+                                            </p>
+                                        </div>
+                                        <h3 className="text-2xl md:text-3xl font-display font-bold text-zinc-100 group-hover:text-blue-400 transition-colors leading-tight">
+                                            {item.title}
+                                        </h3>
+                                    </div>
+                                    
+                                    <div className="flex justify-between items-end border-t border-zinc-800/50 pt-4 mt-4">
+                                        <div>
+                                            <p className="text-zinc-600 font-mono text-[10px] uppercase tracking-widest mb-1">Status</p>
+                                            <p className="text-blue-400 font-mono text-sm font-bold uppercase tracking-wider">Live URL ↗</p>
+                                        </div>
+                                        <div className="text-right">
+                                            {/* Barcode Mockup */}
+                                            <div className="flex gap-[2px] h-6 mb-1 items-end justify-end opacity-50">
+                                                <div className="w-[1px] h-[90%] bg-zinc-400" />
+                                                <div className="w-[3px] h-full bg-zinc-400" />
+                                                <div className="w-[2px] h-full bg-zinc-400" />
+                                                <div className="w-[1px] h-[80%] bg-zinc-400" />
+                                                <div className="w-[4px] h-[95%] bg-zinc-400" />
+                                                <div className="w-[2px] h-full bg-zinc-400" />
+                                            </div>
+                                            <p className="text-zinc-500 font-mono text-[9px] uppercase tracking-widest">
+                                                {item.id}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.a>
                     ))}
                 </div>
             </div>
-        </section>
+        </div>
     );
-};
-
-export default Contributions;
+}

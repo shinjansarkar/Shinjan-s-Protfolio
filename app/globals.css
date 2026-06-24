@@ -4,57 +4,89 @@
 
 @layer base {
   :root {
-    --background: 5 5 5;
+    --background: 9 9 11; /* zinc-950 */
     --foreground: 255 255 255;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --font-display: 'Space Grotesk', system-ui, sans-serif;
+    --font-hero: 'Outfit', system-ui, sans-serif;
   }
 }
 
 body {
-  background-color: #050505;
-  /* Obsidian 950 */
+  background-color: rgb(9, 9, 11);
   color: #fff;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  font-family: var(--font-body);
+  font-feature-settings: "kern" 1, "liga" 1;
 }
 
-/* Custom Selection Color */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+/* ── Selection ── */
 ::selection {
-  background: rgba(0, 240, 255, 0.2);
-  color: #00f0ff;
+  background: rgba(14, 165, 233, 0.2); /* Sky 500 */
+  color: #38bdf8; /* Sky 400 */
 }
 
-/* Hide scrollbar for horizontal scroll */
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Smooth Scroll ── */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
 }
 
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-/* Glassmorphism Utilities */
+/* ── Skiper UI Utilities ── */
 .glass-panel {
   background: rgba(255, 255, 255, 0.02);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 .glass-nav {
-  background: rgba(5, 5, 5, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(9, 9, 11, 0.6);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Native Smooth Scroll */
-html {
-  scroll-behavior: smooth;
+.skiper-button {
+  background: #fff;
+  color: #09090b;
+  font-weight: 500;
+  border-radius: 9999px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
 }
 
+.skiper-button:active {
+  transform: scale(0.96);
+}
+
+.skiper-focus-ring:focus-visible {
+  outline: 2px solid #0ea5e9;
+  outline-offset: 2px;
+}
+
+/* ── Font utilities ── */
+.font-display { font-family: var(--font-display); }
+.font-body    { font-family: var(--font-body); }
+.font-hero    { font-family: var(--font-hero); letter-spacing: -0.02em; }
+
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+  .text-balance { text-wrap: balance; }
 }
