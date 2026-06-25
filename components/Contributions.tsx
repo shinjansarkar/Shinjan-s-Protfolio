@@ -28,7 +28,7 @@ export default function Contributions() {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="grid grid-cols-1 gap-6">
                     {contributions.map((item, i) => (
                         <motion.a 
                             key={i}
@@ -37,55 +37,52 @@ export default function Contributions() {
                             rel="noreferrer"
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.1, type: "spring" }}
+                            transition={{ delay: i * 0.1, type: "spring", stiffness: 200, damping: 20 }}
                             viewport={{ once: true }}
-                            className="relative flex bg-[#0c0c0e] rounded-xl overflow-hidden group shadow-2xl hover:-translate-y-2 transition-transform duration-300 cursor-pointer block"
+                            className="group relative flex flex-col sm:flex-row items-center gap-6 p-6 sm:p-8 bg-zinc-900/40 hover:bg-zinc-900/80 backdrop-blur-sm border border-zinc-800/50 hover:border-rose-500/30 rounded-3xl overflow-hidden transition-all duration-500"
                         >
-                            {/* Colorful Ticket Edge */}
-                            <div className="w-3 bg-gradient-to-b from-blue-600 to-blue-400 h-full relative">
-                                <div className="absolute -left-2 top-1/2 -translate-y-1/2 w-4 h-4 bg-zinc-950 rounded-full" />
+                            {/* Background Gradient Effect */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-rose-500/0 via-rose-500/0 to-rose-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                            
+                            {/* Icon Placeholder */}
+                            <div className="relative shrink-0 w-24 h-24 rounded-full bg-zinc-950 border border-zinc-800 flex items-center justify-center overflow-hidden group-hover:border-rose-500/50 group-hover:shadow-[0_0_30px_-5px_rgba(244,63,94,0.3)] transition-all duration-500 z-10">
+                                <FaMicrophoneAlt className="text-4xl text-zinc-600 group-hover:text-rose-400 transition-colors duration-500" />
+                                {/* Subtle pulse ring */}
+                                <div className="absolute inset-0 rounded-full border-2 border-rose-500/0 group-hover:border-rose-500/20 group-hover:scale-110 transition-all duration-700" />
                             </div>
 
-                            {/* Main Body */}
-                            <div className="flex-grow p-6 md:p-8 border border-l-0 border-zinc-800 rounded-r-xl relative overflow-hidden">
-                                <FaMicrophoneAlt className="absolute -bottom-6 -right-6 text-9xl text-zinc-800/30 group-hover:text-blue-500/10 transition-colors duration-500 rotate-12" />
-                                
-                                <div className="relative z-10 flex flex-col h-full justify-between gap-6">
-                                    <div>
-                                        <div className="flex justify-between items-start mb-2">
-                                            <p className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest border border-zinc-800 px-2 py-1 rounded flex items-center gap-2 group-hover:border-blue-500/50 group-hover:text-blue-400 transition-colors">
-                                                <FaLinkedin /> {item.platform}
-                                            </p>
-                                            <p className="text-zinc-600 font-mono text-[10px] uppercase tracking-widest">
-                                                {item.date}
-                                            </p>
-                                        </div>
-                                        <h3 className="text-2xl md:text-3xl font-display font-bold text-zinc-100 group-hover:text-blue-400 transition-colors leading-tight">
-                                            {item.title}
-                                        </h3>
+                            {/* Content */}
+                            <div className="flex-grow flex flex-col text-center sm:text-left z-10 w-full">
+                                <div className="flex flex-wrap items-center justify-center sm:justify-start gap-3 mb-3">
+                                    <div className="flex items-center gap-2 bg-rose-500/10 border border-rose-500/20 px-3 py-1 rounded-full">
+                                        <span className="relative flex h-2 w-2">
+                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                                            <span className="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+                                        </span>
+                                        <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-rose-400">
+                                            Live Recording
+                                        </span>
                                     </div>
-                                    
-                                    <div className="flex justify-between items-end border-t border-zinc-800/50 pt-4 mt-4">
-                                        <div>
-                                            <p className="text-zinc-600 font-mono text-[10px] uppercase tracking-widest mb-1">Status</p>
-                                            <p className="text-blue-400 font-mono text-sm font-bold uppercase tracking-wider">Live URL ↗</p>
-                                        </div>
-                                        <div className="text-right">
-                                            {/* Barcode Mockup */}
-                                            <div className="flex gap-[2px] h-6 mb-1 items-end justify-end opacity-50">
-                                                <div className="w-[1px] h-[90%] bg-zinc-400" />
-                                                <div className="w-[3px] h-full bg-zinc-400" />
-                                                <div className="w-[2px] h-full bg-zinc-400" />
-                                                <div className="w-[1px] h-[80%] bg-zinc-400" />
-                                                <div className="w-[4px] h-[95%] bg-zinc-400" />
-                                                <div className="w-[2px] h-full bg-zinc-400" />
-                                            </div>
-                                            <p className="text-zinc-500 font-mono text-[9px] uppercase tracking-widest">
-                                                {item.id}
-                                            </p>
-                                        </div>
-                                    </div>
+                                    <span className="text-zinc-500 font-mono text-[10px] uppercase tracking-widest border border-zinc-800 px-2 py-1 rounded">
+                                        {item.date}
+                                    </span>
                                 </div>
+                                
+                                <h3 className="text-2xl md:text-3xl font-display font-bold text-zinc-100 group-hover:text-white transition-colors">
+                                    {item.title}
+                                </h3>
+                                
+                                <div className="flex items-center justify-center sm:justify-start gap-2 mt-4 text-sm font-medium text-zinc-400 group-hover:text-zinc-300 transition-colors">
+                                    <FaLinkedin className="text-[#0A66C2] text-lg" />
+                                    <span>View on {item.platform}</span>
+                                </div>
+                            </div>
+
+                            {/* Arrow */}
+                            <div className="shrink-0 w-12 h-12 hidden sm:flex rounded-full border border-zinc-800 items-center justify-center bg-zinc-950 group-hover:bg-rose-500 group-hover:border-rose-500 transition-all duration-500 z-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-zinc-500 group-hover:text-white -rotate-45 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
                             </div>
                         </motion.a>
                     ))}

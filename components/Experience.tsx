@@ -12,21 +12,22 @@ const experiences = [
     {
         role: "Founding Engineer",
         company: "Bechohub",
-        logo: "/project-logos/bechohub-logo.jpg",
+        logo: "/project-logos/bechohub-logo.webp",
+        link: "https://www.bechohub.com/",
         date: "Present",
         description: "Doing literally everything: frontend, backend, Docker, pipelines, and probably making coffee."
     },
     {
         role: "DevOps Intern",
         company: "Geogo Techsolution",
-        logo: "/project-logos/geogo.png",
+        logo: "/project-logos/geogo.webp",
         date: "March 2025 - Feb 2026",
         description: "Touching real AWS accounts without breaking them (mostly)."
     },
     {
         role: "DevOps Trainee",
         company: "Indian Institute of Internship",
-        logo: "/project-logos/iii.png",
+        logo: "/project-logos/iii.webp",
         date: "June 2024 - July 2024",
         description: "Learned Docker by breaking containers until they worked."
     },
@@ -72,7 +73,13 @@ const Experience = () => {
                             <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-sm font-medium mb-4">
                                 <div className="flex items-center gap-2 text-rose-500">
                                     {exp.logo && <img src={exp.logo} alt={exp.company} className="w-5 h-5 rounded-full object-cover grayscale opacity-70 group-hover/item:grayscale-0 group-hover/item:opacity-100 transition-all" />}
-                                    <span className="uppercase tracking-widest">{exp.company}</span>
+                                    {exp.link ? (
+                                        <a href={exp.link} target="_blank" rel="noreferrer" className="uppercase tracking-widest hover:underline hover:text-rose-400 transition-colors">
+                                            {exp.company} ↗
+                                        </a>
+                                    ) : (
+                                        <span className="uppercase tracking-widest">{exp.company}</span>
+                                    )}
                                 </div>
                                 <span className="text-zinc-600 font-mono tracking-wider text-xs">{exp.date}</span>
                             </div>

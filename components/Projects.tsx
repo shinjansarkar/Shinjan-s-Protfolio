@@ -10,15 +10,14 @@ const projects = [
         description: "A VS code extension with 400+ downloads. Yes, 400 people trust me to generate their Dockerfiles.",
         tags: ["TypeScript", "Docker", "VS Code API"],
         link: "https://shinjansarkar.github.io/Auto-Docker-landing-page/",
-        github: "#",
+        github: "https://github.com/shinjansarkar/Auto-Docker.git",
         number: "01"
     },
     {
         title: "QuizFlow",
         description: "Mentored someone to build this secure test platform. Basically, I carried the project emotionally.",
         tags: ["Spring Boot", "React", "Supabase"],
-        link: "#",
-        github: "#",
+        github: "https://github.com/shinjansarkar/Quiz-app.git",
         number: "02"
     },
     {
@@ -26,15 +25,14 @@ const projects = [
         description: "A real portal for managing events. Actually useful, surprisingly.",
         tags: ["React", "Supabase", "Vercel"],
         link: "https://rcciit-coverage.vercel.app/",
-        github: "#",
+        github: "https://github.com/shinjansarkar/rcciit-coverage.git",
         number: "03"
     },
     {
         title: "MERN Stack Blog",
         description: "Because why have one monolith when you can containerize collaborative notepads and blogs?",
         tags: ["Docker", "Nginx", "GitLab CI"],
-        link: "#",
-        github: "#",
+        github: "https://github.com/shinjansarkar/wanderlust.git",
         number: "04"
     }
 ];
@@ -81,7 +79,7 @@ export default function Projects() {
                                 <div className="relative z-20 flex flex-col h-full justify-end">
                                     <div className="flex flex-row md:flex-col lg:flex-row items-center md:items-start lg:items-end gap-4 mb-4">
                                         <span className="text-rose-500 font-mono text-3xl font-bold">{project.number}.</span>
-                                        <h3 className={`font-display font-bold text-zinc-100 transition-all duration-300 origin-left whitespace-nowrap md:whitespace-normal ${isHovered ? 'text-3xl md:text-5xl opacity-100' : 'text-xl opacity-0 md:opacity-100 md:-rotate-90 md:-translate-y-20 origin-bottom-left'}`}>
+                                        <h3 className={`font-display font-bold text-zinc-100 transition-all duration-300 origin-left whitespace-nowrap md:whitespace-normal ${isHovered ? 'text-3xl md:text-5xl opacity-100' : 'text-xl opacity-100 md:-rotate-90 md:-translate-y-20 origin-bottom-left'}`}>
                                             {project.title}
                                         </h3>
                                     </div>
@@ -112,9 +110,11 @@ export default function Projects() {
                                             <a href={project.github} className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-zinc-400 hover:text-white transition-colors" target="_blank" rel="noreferrer">
                                                 <FaGithub size={18} /> Code
                                             </a>
-                                            <a href={project.link} className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-zinc-400 hover:text-rose-500 transition-colors" target="_blank" rel="noreferrer">
-                                                <FaExternalLinkAlt size={16} /> Live
-                                            </a>
+                                            {project.link && (
+                                                <a href={project.link} className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-zinc-400 hover:text-rose-500 transition-colors" target="_blank" rel="noreferrer">
+                                                    <FaExternalLinkAlt size={16} /> Live
+                                                </a>
+                                            )}
                                         </div>
                                     </motion.div>
                                 </div>

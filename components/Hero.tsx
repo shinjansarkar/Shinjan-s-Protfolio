@@ -33,7 +33,14 @@ const Hero = () => {
                 </h1>
 
                 <p className="text-zinc-400 font-body leading-relaxed text-lg md:text-xl max-w-2xl mb-10">
-                    Hi, I'm <strong className="text-zinc-200">Shinjan Sarkar</strong>. I have 1 year of DevOps experience (which translates to 10 years in regular developer stress). I also freelance to build websites for clients who "definitely know what they want".
+                    Hi, I'm{" "}
+                    <span className="relative inline-block group">
+                        <strong className="font-display font-bold text-2xl md:text-3xl tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-rose-600 cursor-default drop-shadow-[0_0_10px_rgba(244,63,94,0.2)]">
+                            Shinjan Sarkar
+                        </strong>
+                        <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-rose-400 to-rose-600 origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
+                    </span>
+                    . I babysit servers and gently remind developers that "it works on my machine" isn't a valid deployment strategy. I also freelance to build websites for clients who "definitely know what they want".
                 </p>
 
                 <div className="flex flex-wrap gap-6 items-center">
