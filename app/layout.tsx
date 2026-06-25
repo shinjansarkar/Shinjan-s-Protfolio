@@ -8,9 +8,6 @@ export const metadata: Metadata = {
     authors: [{ name: "Shinjan Sarkar" }],
     creator: "Shinjan Sarkar",
     publisher: "Shinjan Sarkar",
-    verification: {
-        google: "djI37PKo64NrkSMGuy-EWTUtdvQycy8IvPHMPzlJuKU",
-    },
     robots: {
         index: true,
         follow: true,
@@ -34,6 +31,9 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Shinjan Sarkar — Founding Engineer at Bechohub",
         description: "DevOps Architect and Founding Engineer at Bechohub.",
+    },
+    verification: {
+        google: "djI37PKo64NrkSMGuy-EWTUtdvQycy8IvPHMPzlJuKU",
     },
     viewport: {
         width: "device-width",
