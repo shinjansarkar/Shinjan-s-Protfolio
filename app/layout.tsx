@@ -8,6 +8,9 @@ export const metadata: Metadata = {
     authors: [{ name: "Shinjan Sarkar" }],
     creator: "Shinjan Sarkar",
     publisher: "Shinjan Sarkar",
+    verification: {
+        google: "djI37PKo64NrkSMGuy-EWTUtdvQycy8IvPHMPzlJuKU",
+    },
     robots: {
         index: true,
         follow: true,
