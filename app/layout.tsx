@@ -8,6 +8,9 @@ export const metadata: Metadata = {
     authors: [{ name: "Shinjan Sarkar" }],
     creator: "Shinjan Sarkar",
     publisher: "Shinjan Sarkar",
+    icons: {
+        icon: "/favicon.ico",
+    },
     robots: {
         index: true,
         follow: true,
@@ -26,11 +29,20 @@ export const metadata: Metadata = {
         siteName: 'Shinjan Sarkar Portfolio',
         locale: 'en_US',
         type: "website",
+        images: [
+            {
+                url: '/icon.png',
+                width: 1200,
+                height: 630,
+                alt: 'Shinjan Sarkar Portfolio',
+            },
+        ],
     },
     twitter: {
         card: "summary_large_image",
         title: "Shinjan Sarkar — Founding Engineer at Bechohub",
         description: "DevOps Architect and Founding Engineer at Bechohub.",
+        images: ['/icon.png'],
     },
     verification: {
         google: "djI37PKo64NrkSMGuy-EWTUtdvQycy8IvPHMPzlJuKU",
