@@ -22,9 +22,10 @@ const Navbar = () => {
     });
 
     const links = [
-        { name: "Experience", href: "#experience" },
-        { name: "Skills", href: "#skills" },
-        { name: "Work", href: "#projects" },
+        { name: "Experience", href: "/#experience" },
+        { name: "Skills", href: "/#skills" },
+        { name: "Work", href: "/#projects" },
+        { name: "Docs", href: "/docs" },
     ];
 
     return (
@@ -39,7 +40,7 @@ const Navbar = () => {
         >
             <nav className="px-4 py-2 flex items-center gap-4 md:gap-6 w-fit mx-auto bg-zinc-950/50 backdrop-blur-md rounded-full border border-zinc-800/50 shadow-lg">
                 
-                <a href="#home" className="text-zinc-100 font-display font-bold text-sm tracking-tight px-2 hover:text-rose-400 transition-colors">
+                <a href="/#home" className="text-zinc-100 font-display font-bold text-sm tracking-tight px-2 hover:text-rose-400 transition-colors">
                     Shinjan.
                 </a>
 
@@ -56,7 +57,7 @@ const Navbar = () => {
                     <a href="https://github.com/shinjansarkar" target="_blank" rel="noreferrer" className="hidden md:block text-zinc-400 hover:text-white transition-colors">
                         <FaGithub size={18} />
                     </a>
-                    <a href="#contact" className="px-4 md:px-5 py-2 text-[10px] md:text-[11px] uppercase tracking-wider text-black bg-white hover:scale-105 transition-transform rounded-full font-bold shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)]">
+                    <a href="/#contact" className="px-4 md:px-5 py-2 text-[10px] md:text-[11px] uppercase tracking-wider text-black bg-white hover:scale-105 transition-transform rounded-full font-bold shadow-[0_0_15px_rgba(255,255,255,0.4)] hover:shadow-[0_0_25px_rgba(255,255,255,0.6)]">
                         Contact
                     </a>
                     

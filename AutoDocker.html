@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <!-- Primary Meta Tags -->
+    <title>Auto Docker Extension - Containerize Apps in Seconds | VS Code Extension</title>
+    <meta name="title" content="Auto Docker Extension - Containerize Apps in Seconds | VS Code Extension"/>
+    <meta name="description" content="Auto-detects your stack and generates production-ready Dockerfiles, Compose files ,configs. Supercharge your Docker workflow with intelligent project detection."/>
+    <meta name="keywords" content="docker, vscode extension, dockerfile generator, docker compose, containerization, devops, nginx, monorepo, next.js, node.js"/>
+    <meta name="author" content="Shinjan Sarkar"/>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://autodocker.dev/"/>
+    <meta property="og:title" content="Auto Docker Extension - Containerize Apps in Seconds"/>
+    <meta property="og:description" content="Auto-detects your stack and generates production-ready Dockerfiles, Compose files, configs. No YAML headaches required."/>
+    <meta property="og:image" content="https://autodocker.dev/og-image.png"/>
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image"/>
+    <meta property="twitter:url" content="https://autodocker.dev/"/>
+    <meta property="twitter:title" content="Auto Docker Extension - Containerize Apps in Seconds"/>
+    <meta property="twitter:description" content="Auto-detects your stack and generates production-ready Dockerfiles, Compose files, configs."/>
+    <meta property="twitter:image" content="https://autodocker.dev/og-image.png"/>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./favicon.png"/>
+    <link rel="manifest" href="./site.webmanifest"/>
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://cdn.tailwindcss.com"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Spline+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Tailwind Config -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13c8ec",
+                        "background-light": "#f6f8f8",
+                        "background-dark": "#101f22",
+                    },
+                    fontFamily: {
+                        "display": ["Spline Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "1rem", 
+                        "lg": "1.5rem", 
+                        "xl": "2rem", 
+                        "2xl": "2.5rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="/styles.css"/>
+    
+    <!-- Analytics (Google Analytics - Replace with your ID) -->
+    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script> -->
+    <!-- <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script> -->
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-white font-display overflow-x-hidden transition-colors duration-300">
+    
+    <!-- Navigation -->
+    <div class="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-[#283639] bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md">
+        <div class="layout-container flex justify-center w-full">
+            <div class="w-full max-w-[1280px] px-4 md:px-10">
+                <header class="flex items-center justify-between h-16 md:h-20">
+                    <div class="flex items-center gap-2">
+                        <div class="size-12 flex items-center justify-center">
+                            <img src="./favicon.png" alt="Auto Docker Logo" class="w-full h-full object-contain">
+                        </div>
+                        <h2 class="text-lg md:text-xl font-bold tracking-tight">Auto Docker</h2>
+                    </div>
+                    <nav class="hidden md:flex items-center gap-8">
+                        <a class="text-sm font-medium hover:text-primary transition-colors text-slate-600 dark:text-slate-300" href="#features">Features</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors text-slate-600 dark:text-slate-300" href="#how-it-works">How it Works</a>
+                        <a class="text-sm font-medium hover:text-primary transition-colors text-slate-600 dark:text-slate-300" href="https://github.com/shinjansarkar/Auto-Docker#readme" target="_blank">Docs</a>
+                    </nav>
+                    <div class="flex items-center gap-4">
+                        <button onclick="window.location.href='https://marketplace.visualstudio.com/items?itemName=ShinjanSarkar.auto-docker-extension'" class="hidden md:flex cursor-pointer items-center justify-center rounded-full h-10 px-6 bg-primary hover:bg-cyan-400 text-slate-900 text-sm font-bold transition-all shadow-lg shadow-primary/20">
+                            <span class="truncate">Install Extension</span>
+                        </button>
+                        <button id="mobile-menu-btn" class="md:hidden text-slate-600 dark:text-white">
+                            <span class="material-symbols-outlined">menu</span>
+                        </button>
+                    </div>
+                </header>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden fixed inset-0 z-[9999] bg-[#101f22]/98 backdrop-blur-lg md:hidden">
+        <div class="absolute top-6 right-6">
+            <button id="mobile-menu-close" class="text-white p-2 hover:text-primary transition-colors flex items-center justify-center w-10 h-10">
+                <span class="material-symbols-outlined text-4xl">close</span>
+            </button>
+        </div>
+        <div class="flex flex-col items-center justify-center h-full gap-10 px-8">
+            <a class="text-2xl font-semibold hover:text-primary transition-colors text-white" href="#features">Features</a>
+            <a class="text-2xl font-semibold hover:text-primary transition-colors text-white" href="#how-it-works">How it Works</a>
+            <a class="text-2xl font-semibold hover:text-primary transition-colors text-white" href="https://github.com/shinjansarkar/Auto-Docker#readme" target="_blank">Docs</a>
+            <button onclick="window.location.href='https://marketplace.visualstudio.com/items?itemName=ShinjanSarkar.auto-docker-extension'" class="flex cursor-pointer items-center justify-center rounded-full h-14 px-10 bg-primary hover:bg-cyan-400 text-slate-900 text-lg font-bold transition-all shadow-lg shadow-primary/30 mt-4">
+                <span class="truncate">Install Extension</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Hero Section -->
+    <section class="relative w-full pt-20 pb-16 md:pt-32 md:pb-24 overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-[1000px] opacity-20 pointer-events-none">
+            <div class="absolute top-[-10%] left-[10%] w-[300px] h-[300px] rounded-full bg-primary blur-[120px]"></div>
+            <div class="absolute bottom-[10%] right-[10%] w-[250px] h-[250px] rounded-full bg-blue-600 blur-[100px]"></div>
+        </div>
+        <div class="layout-container flex justify-center relative z-10 px-4">
+            <div class="max-w-[960px] flex flex-col items-center text-center gap-6 md:gap-8">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
+                    <span class="material-symbols-outlined text-base">rocket_launch</span>
+                    <span>v2.0 is now available</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
+                    Containerize apps <br class="hidden md:block"/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">in seconds, not hours.</span>
+                </h1>
+                <p class="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-[640px] leading-relaxed">
+                    Auto-detects your stack and generates production-ready Dockerfiles, Compose files, and CI/CD configs. No YAML headaches required.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-4">
+                    <button onclick="window.location.href='https://marketplace.visualstudio.com/items?itemName=ShinjanSarkar.auto-docker-extension'" class="flex items-center justify-center gap-2 h-12 px-8 rounded-full bg-primary hover:bg-cyan-400 text-slate-900 font-bold text-base transition-all shadow-lg shadow-primary/25">
+                        <span class="material-symbols-outlined">download</span>
+                        <span>Install for VS Code</span>
+                    </button>
+                    <button onclick="window.open('https://github.com/shinjansarkar/Auto-Docker', '_blank')" class="flex items-center justify-center gap-2 h-12 px-8 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-900 dark:text-white font-medium text-base transition-all">
+                        <span class="material-symbols-outlined">code</span>
+                        <span>View on GitHub</span>
+                    </button>
+                </div>
+                <div class="w-full mt-12 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl bg-[#0d1117]">
+                    <div class="flex items-center gap-2 px-4 py-3 bg-[#161b22] border-b border-slate-800">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        <div class="ml-4 text-xs text-slate-500 font-mono">bash — docker-auto-gen</div>
+                    </div>
+                    <div class="p-6 text-left font-mono text-sm md:text-base overflow-x-auto">
+                        <div class="text-green-400">$ auto-docker init</div>
+                        <div class="text-slate-300 mt-2">🔍 Scanning project directory...</div>
+                        <div class="text-blue-400 mt-1">✓ Detected: Node.js (Next.js) + PostgreSQL</div>
+                        <div class="text-slate-300 mt-1">📦 Generating Dockerfile...</div>
+                        <div class="text-slate-300 mt-1">🐙 Generating docker-compose.yml...</div>
+                        <div class="text-slate-300 mt-1">🕸️ Configuring Nginx reverse proxy...</div>
+                        <div class="text-green-400 mt-4">✓ Done! Run 'docker compose up' to start.</div>
+                        <div class="animate-pulse inline-block w-2 h-4 bg-slate-500 align-middle ml-1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Features Section -->
+    <section id="features" class="w-full py-20 px-4 md:px-10 bg-white dark:bg-[#152327]">
+        <div class="layout-container flex justify-center w-full">
+            <div class="w-full max-w-[1280px]">
+                <div class="flex flex-col gap-4 mb-16 max-w-3xl">
+                    <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">
+                        Supercharge Your <span class="text-primary">Docker Workflow</span>
+                    </h2>
+                    <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Everything you need to containerize your applications instantly, from intelligent detection to production-ready configurations.
+                    </p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="group relative flex flex-col gap-4 p-8 rounded-2xl bg-slate-50 dark:bg-[#1a2c32] hover:bg-primary/5 border border-slate-200 dark:border-slate-800 hover:border-primary/30 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-2 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl">psychology</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Intelligent Project Detection</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Automatically identifies language, framework, and package manager by analyzing your `package.json`, `requirements.txt`, or `go.mod`.
+                        </p>
+                    </div>
+                    <div class="group relative flex flex-col gap-4 p-8 rounded-2xl bg-slate-50 dark:bg-[#1a2c32] hover:bg-primary/5 border border-slate-200 dark:border-slate-800 hover:border-primary/30 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-2 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl">layers</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Multi-Stage Dockerfiles</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Generates optimized multi-stage builds. Keep your final images small and secure by separating build dependencies from runtime.
+                        </p>
+                    </div>
+                    <div class="group relative flex flex-col gap-4 p-8 rounded-2xl bg-slate-50 dark:bg-[#1a2c32] hover:bg-primary/5 border border-slate-200 dark:border-slate-800 hover:border-primary/30 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-2 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl">grid_view</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Docker Compose Generation</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Spin up databases (Postgres, Redis, Mongo) and services instantly with pre-configured YAML that just works out of the box.
+                        </p>
+                    </div>
+                    <div class="group relative flex flex-col gap-4 p-8 rounded-2xl bg-slate-50 dark:bg-[#1a2c32] hover:bg-primary/5 border border-slate-200 dark:border-slate-800 hover:border-primary/30 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-2 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl">dns</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Automatic Nginx Reverse Proxy</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Need a custom domain locally? We generate production-ready Nginx routing configurations automatically linked to your services.
+                        </p>
+                    </div>
+                    <div class="group relative flex flex-col gap-4 p-8 rounded-2xl bg-slate-50 dark:bg-[#1a2c32] hover:bg-primary/5 border border-slate-200 dark:border-slate-800 hover:border-primary/30 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-2 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl">account_tree</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Monorepo Support</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            Seamlessly handle complex project structures like Turborepo or Nx. Select which app to containerize with a simple dropdown.
+                        </p>
+                    </div>
+                    <div class="group relative flex flex-col gap-4 p-8 rounded-2xl bg-slate-50 dark:bg-[#1a2c32] hover:bg-primary/5 border border-slate-200 dark:border-slate-800 hover:border-primary/30 transition-all duration-300">
+                        <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-2 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-3xl">shield_lock</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 dark:text-white">Secure & Local</h3>
+                        <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                            No data leaves your machine. The extension runs 100% offline, ensuring your code and architecture details stay private.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Comparison Section -->
+    <section id="how-it-works" class="w-full py-20 px-4 md:px-10 overflow-hidden relative">
+        <div class="absolute inset-0 pointer-events-none opacity-20">
+            <div class="absolute top-[20%] right-[10%] w-[300px] h-[300px] rounded-full bg-primary/30 blur-[100px]"></div>
+        </div>
+        <div class="layout-container flex justify-center w-full relative z-10">
+            <div class="w-full max-w-[1280px]">
+                <div class="text-center mb-12">
+                    <span class="uppercase tracking-widest text-primary text-xs font-bold mb-3 block">Why Auto Docker?</span>
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">
+                        Stop Writing Dockerfiles <span class="relative inline-block text-slate-500 dark:text-slate-600 line-through decoration-red-500/80 decoration-4">manually</span>.
+                    </h2>
+                    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        Why waste hours configuring environments, debugging networking, and managing dependencies when you can do it in seconds?
+                    </p>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-8 items-stretch">
+                    <div class="flex flex-col rounded-3xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-[#101f22] p-6 lg:p-8 opacity-70 hover:opacity-100 transition-opacity duration-300">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="flex items-center gap-3">
+                                <span class="material-symbols-outlined text-3xl text-slate-400">terminal</span>
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-900 dark:text-white">Manual Setup</h3>
+                                    <p class="text-sm text-slate-500">The old way. Error prone and tedious.</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-slate-200 dark:bg-slate-800 text-xs font-mono text-slate-500">~ 2 Hours</span>
+                        </div>
+                        <div class="flex-grow bg-[#0d1117] rounded-xl p-4 font-mono text-xs md:text-sm overflow-hidden relative mb-6 border border-slate-800/50 shadow-inner">
+                            <div class="absolute top-3 right-3 flex gap-1.5">
+                                <div class="w-2.5 h-2.5 rounded-full bg-red-500/50"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/50"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-green-500/50"></div>
+                            </div>
+                            <div class="text-slate-500">FROM <span class="text-purple-400">node:18-alpine</span></div>
+                            <div class="text-slate-500">WORKDIR <span class="text-green-400">/app</span></div>
+                            <div class="text-slate-500">COPY package*.json ./</div>
+                            <div class="text-slate-500">RUN npm install</div>
+                            <div class="text-green-700/70 italic"># FIXME: dependency conflict</div>
+                            <div class="text-slate-500">COPY . .</div>
+                            <div class="text-slate-500">RUN npm run build</div>
+                            <div class="text-red-400 font-bold mt-1">ERROR: gyp failed to compile</div>
+                            <div class="text-slate-500 mt-1 opacity-50">EXPOSE 3000</div>
+                            <div class="text-slate-500 opacity-50">CMD ["npm", "start"]</div>
+                            <div class="mt-4 flex items-center gap-2 text-red-400 text-xs justify-end">
+                                <span class="material-symbols-outlined text-sm">error</span> Build Failed
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 text-slate-500">
+                                <span class="material-symbols-outlined text-red-400/70">close</span>
+                                <span>Complex file trees & dependencies</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-slate-500">
+                                <span class="material-symbols-outlined text-red-400/70">close</span>
+                                <span>Scattered terminal commands</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-slate-500">
+                                <span class="material-symbols-outlined text-red-400/70">close</span>
+                                <span>Endless debugging & version conflicts</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col relative rounded-3xl border-2 border-primary/50 bg-[#152327] p-6 lg:p-8 overflow-hidden shadow-[0_0_50px_-12px_rgba(19,200,236,0.15)] transform md:-translate-y-4">
+                        <div class="absolute top-0 right-0 bg-primary text-slate-900 text-xs font-bold px-4 py-1 rounded-bl-xl shadow-lg">RECOMMENDED</div>
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="flex items-center gap-3">
+                                <div class="p-2 bg-gradient-to-br from-primary to-blue-500 rounded-lg shadow-lg shadow-primary/20 text-white">
+                                    <span class="material-symbols-outlined text-2xl">auto_fix_high</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-white">Auto Docker</h3>
+                                    <p class="text-sm text-primary/80">Zero configuration. Production ready.</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-mono text-primary font-bold hidden sm:inline-block">~ 5 Seconds</span>
+                        </div>
+                        <div class="flex-grow bg-[#0d1117] rounded-xl p-0 font-mono text-xs md:text-sm overflow-hidden relative mb-6 border border-primary/20 shadow-2xl flex items-center justify-center min-h-[220px] group">
+                            <div class="absolute inset-0 bg-[linear-gradient(rgba(19,200,236,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(19,200,236,0.05)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+                            <div class="relative w-[85%] bg-[#1a2c32] rounded-lg border border-slate-700 shadow-xl p-4 flex flex-col gap-3">
+                                <div class="flex items-center gap-2 text-slate-300 text-xs mb-1">
+                                    <span class="material-symbols-outlined text-sm">folder_open</span>
+                                    Project Detected: <span class="text-white font-bold">Next.js</span>
+                                </div>
+                                <div class="space-y-1">
+                                    <div class="flex justify-between text-[10px] text-slate-400 uppercase tracking-wider">
+                                        <span>Generating files...</span>
+                                        <span class="text-primary">100%</span>
+                                    </div>
+                                    <div class="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
+                                        <div class="h-full bg-gradient-to-r from-primary to-blue-400 w-full rounded-full shadow-[0_0_10px_rgba(19,200,236,0.5)]"></div>
+                                    </div>
+                                </div>
+                                <button class="mt-2 w-full py-2 bg-gradient-to-r from-primary to-blue-500 hover:from-cyan-300 hover:to-blue-400 text-slate-900 font-bold rounded-md shadow-lg shadow-primary/20 transition-all active:scale-95 flex items-center justify-center gap-2">
+                                    <span class="material-symbols-outlined text-lg">rocket_launch</span>
+                                    Dockerize
+                                </button>
+                            </div>
+                            <div class="absolute bottom-3 flex items-center gap-2 bg-[#1a2c32]/90 backdrop-blur border border-green-500/30 px-3 py-1 rounded-full text-green-400 text-xs font-bold shadow-lg animate-bounce duration-[2000ms]">
+                                <span class="material-symbols-outlined text-sm">check_circle</span>
+                                Setup Complete!
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex items-center gap-3 text-white">
+                                <div class="flex items-center justify-center w-5 h-5 rounded-full bg-primary/20 text-primary">
+                                    <span class="material-symbols-outlined text-sm">check</span>
+                                </div>
+                                <span>Single button press setup</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-white">
+                                <div class="flex items-center justify-center w-5 h-5 rounded-full bg-primary/20 text-primary">
+                                    <span class="material-symbols-outlined text-sm">check</span>
+                                </div>
+                                <span>Auto-detection of framework & language</span>
+                            </div>
+                            <div class="flex items-center gap-3 text-white">
+                                <div class="flex items-center justify-center w-5 h-5 rounded-full bg-primary/20 text-primary">
+                                    <span class="material-symbols-outlined text-sm">check</span>
+                                </div>
+                                <span>Production-ready Nginx & Docker Compose</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-16 flex justify-center">
+                    <button onclick="window.location.href='https://marketplace.visualstudio.com/items?itemName=ShinjanSarkar.auto-docker-extension'" class="group relative inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-primary to-blue-500 rounded-full text-slate-900 font-bold text-lg shadow-[0_0_20px_-5px_rgba(19,200,236,0.5)] hover:shadow-[0_0_30px_-5px_rgba(19,200,236,0.7)] transition-all duration-300 hover:-translate-y-1">
+                        <span>Start Automating Now</span>
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </button>
+                </div>
+                <p class="text-center text-sm text-slate-500 mt-4">Works with VS Code • Free for open source</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA Section -->
+    <section class="w-full py-20 px-4 md:px-10 bg-white dark:bg-[#152327] border-t border-slate-200 dark:border-[#283639]">
+        <div class="layout-container flex justify-center w-full">
+            <div class="w-full max-w-[960px] flex flex-col items-center text-center gap-8">
+                <h2 class="text-3xl md:text-5xl font-bold tracking-tight">
+                    Ready to automate your Docker setup?
+                </h2>
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl">
+                    Join thousands of developers shipping faster with Auto Docker Extension. Stop writing boilerplate and start building features.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 w-full justify-center">
+                    <button onclick="window.location.href='https://marketplace.visualstudio.com/items?itemName=ShinjanSarkar.auto-docker-extension'" class="flex items-center justify-center gap-2 h-12 px-8 rounded-full bg-primary hover:bg-cyan-400 text-slate-900 font-bold text-base transition-all shadow-lg shadow-primary/25 min-w-[200px]">
+                        <span class="truncate">Install for VS Code</span>
+                    </button>
+                    <button onclick="window.open('https://github.com/shinjansarkar/Auto-Docker#readme', '_blank')" class="flex items-center justify-center gap-2 h-12 px-8 rounded-full bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-900 dark:text-white font-bold text-base transition-all min-w-[200px]">
+                        <span class="truncate">Read Documentation</span>
+                    </button>
+                </div>
+                <p class="text-sm text-slate-500">Free for open source projects. No credit card required.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="w-full py-16 px-4 md:px-10 border-t border-slate-200 dark:border-[#283639] bg-background-light dark:bg-background-dark">
+        <div class="layout-container flex justify-center w-full">
+            <div class="w-full max-w-[1280px]">
+                <!-- Footer Content -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                    <!-- Auto Docker Column -->
+                    <div>
+                        <div class="flex items-center gap-2 text-slate-900 dark:text-white mb-4">
+                            <div class="size-8 flex items-center justify-center">
+                                <img src="./favicon.png" alt="Auto Docker Logo" class="w-full h-full object-contain">
+                            </div>
+                            <span class="font-bold text-lg">Auto Docker</span>
+                        </div>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                            High-performance Docker automation extension for VS Code.
+                        </p>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mt-2">
+                            MIT Licensed.
+                        </p>
+                    </div>
+                    
+                    <!-- Resources Column -->
+                    <div>
+                        <h3 class="text-white font-semibold text-base mb-4">Resources</h3>
+                        <ul class="space-y-3">
+                            <li>
+                                <a href="https://github.com/shinjansarkar/Auto-Docker#readme" target="_blank" class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
+                                    Documentation
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/shinjansarkar/Auto-Docker/blob/main/README.md" target="_blank" class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
+                                    README
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://marketplace.visualstudio.com/items?itemName=ShinjanSarkar.auto-docker-extension" target="_blank" class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
+                                    VS Code Marketplace
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Community Column -->
+                    <div>
+                        <h3 class="text-white font-semibold text-base mb-4">Community</h3>
+                        <ul class="space-y-3">
+                            <li>
+                                <a href="https://github.com/shinjansarkar/Auto-Docker" target="_blank" class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
+                                    GitHub
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/shinjansarkar/Auto-Docker/issues" target="_blank" class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
+                                    Issues
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/shinjansarkar/Auto-Docker/discussions" target="_blank" class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
+                                    Discussions
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- More Column -->
+                    <div>
+                        <h3 class="text-white font-semibold text-base mb-4">More</h3>
+                        <ul class="space-y-3">
+                            <li>
+                                <a href="https://github.com/shinjansarkar/Auto-Docker/blob/main/LICENSE" target="_blank" class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
+                                    License (MIT)
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/shinjansarkar/Auto-Docker/releases" target="_blank" class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
+                                    Releases
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://marketplace.visualstudio.com/items?itemName=ShinjanSarkar.auto-docker-extension&ssr=false#review-details" target="_blank" class="text-slate-600 dark:text-slate-400 hover:text-primary transition-colors text-sm">
+                                    Reviews
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Footer Bottom -->
+                <div class="pt-8 border-t border-slate-200 dark:border-[#283639] flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="text-slate-600 dark:text-slate-400 text-sm">
+                        © 2025 Auto Docker Extension. All rights reserved.
+                    </div>
+                    <div class="text-slate-600 dark:text-slate-400 text-sm">
+                        Designed with <span class="text-red-500">❤</span> by <a href="https://github.com/shinjansarkar" target="_blank" class="text-primary hover:text-cyan-400 transition-colors">Shinjan Sarkar</a>.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Custom JavaScript -->
+    <script src="./app.js"></script>
+    
+    <!-- Fallback inline script for production -->
+    <script>
+    // Immediate execution for mobile menu
+    (function() {
+        function initMobileMenu() {
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenuClose = document.getElementById('mobile-menu-close');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            if (!mobileMenuBtn || !mobileMenu) return;
+            
+            function openMobileMenu() {
+                mobileMenu.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                document.body.classList.add('menu-open');
+            }
+            
+            function closeMobileMenu() {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = '';
+                document.body.classList.remove('menu-open');
+            }
+            
+            mobileMenuBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openMobileMenu();
+            });
+            
+            if (mobileMenuClose) {
+                mobileMenuClose.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    closeMobileMenu();
+                });
+            }
+            
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    closeMobileMenu();
+                });
+            });
+            
+            mobileMenu.addEventListener('click', function(e) {
+                if (e.target === mobileMenu) {
+                    closeMobileMenu();
+                }
+            });
+            
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !mobileMenu.classList.contains('hidden')) {
+                    closeMobileMenu();
+                }
+            });
+        }
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initMobileMenu);
+        } else {
+            initMobileMenu();
+        }
+    })();
+    </script>
+</body>
+</html>

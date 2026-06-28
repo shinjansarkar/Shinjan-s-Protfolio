@@ -9,7 +9,7 @@ const projects = [
         title: "Auto Docker",
         description: "A VS code extension with 400+ downloads. Yes, 400 people trust me to generate their Dockerfiles.",
         tags: ["TypeScript", "Docker", "VS Code API"],
-        link: "https://shinjansarkar.github.io/Auto-Docker-landing-page/",
+        link: "/autodocker",
         github: "https://github.com/shinjansarkar/Auto-Docker.git",
         number: "01"
     },
@@ -29,10 +29,11 @@ const projects = [
         number: "03"
     },
     {
-        title: "MERN Stack Blog",
-        description: "Because why have one monolith when you can containerize collaborative notepads and blogs?",
-        tags: ["Docker", "Nginx", "GitLab CI"],
-        github: "https://github.com/shinjansarkar/wanderlust.git",
+        title: "NetDiscover",
+        description: "Because pressing 'Scan' basically makes you Mr. Robot. A network scanner with a hostile UX.",
+        tags: ["Python", "Networking", "Next.js"],
+        link: "/netdiscover",
+        github: "https://github.com/shinjansarkar/netdiscover.git",
         number: "04"
     }
 ];
