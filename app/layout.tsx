@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-    title: "Shinjan Sarkar — Founding Engineer at Bechohub & DevOps Architect",
+    title: "Shinjan Sarkar",
     description: "Shinjan Sarkar is the Founding Engineer at Bechohub. Specializing in cloud architecture, DevOps, Kubernetes, CI/CD, and building robust backend systems.",
     keywords: ["Shinjan Sarkar", "Bechohub", "Founding Engineer Bechohub", "Shinjan Sarkar DevOps", "Shinjan Sarkar Bechohub", "DevOps Engineer", "Cloud Architect", "Kubernetes", "AWS", "Docker", "CI/CD", "Backend Engineer"],
     authors: [{ name: "Shinjan Sarkar" }],
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         },
     },
     openGraph: {
-        title: "Shinjan Sarkar — Founding Engineer at Bechohub",
+        title: "Shinjan Sarkar",
         description: "Shinjan Sarkar is a DevOps Architect and Founding Engineer at Bechohub. I build the infrastructure that makes products scale.",
         url: 'https://shinjan-sarkar.tech',
         siteName: 'Shinjan Sarkar Portfolio',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "Shinjan Sarkar — Founding Engineer at Bechohub",
+        title: "Shinjan Sarkar",
         description: "DevOps Architect and Founding Engineer at Bechohub.",
         images: ['/icon.png'],
     },

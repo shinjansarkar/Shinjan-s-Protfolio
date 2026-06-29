@@ -1,10 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
-export default function DocsPage() {
+export default function BlogsPage() {
     return (
         <main className="min-h-screen bg-zinc-950 text-white selection:bg-rose-500/30 selection:text-rose-400 overflow-x-hidden relative flex flex-col">
             
@@ -23,19 +24,15 @@ export default function DocsPage() {
                     transition={{ duration: 0.5 }}
                 >
                     <h1 className="text-4xl md:text-6xl font-display font-bold mb-6 text-zinc-100">
-                        <span className="text-rose-500">Docs</span> & Writing
+                        <span className="text-rose-500">Blogs</span> & Articles
                     </h1>
                     <p className="text-zinc-400 text-lg mb-12">
-                        Welcome to my digital garden. This is where I publish my blogs, rants, and documentation. I'll get around to writing actual posts eventually.
+                        Welcome to my digital garden. This is where I publish my blogs and articles. I'll get around to writing actual posts eventually.
                     </p>
                     
-                    {/* Placeholder for blogs */}
+                    {/* Projects and Docs */}
                     <div className="flex flex-col gap-6">
-                        <div className="p-8 border border-zinc-800 rounded-3xl bg-zinc-900/50 hover:border-rose-500/50 hover:bg-zinc-900 transition-all duration-300 cursor-pointer group shadow-xl backdrop-blur-sm">
-                            <h3 className="text-2xl font-display font-bold text-zinc-100 group-hover:text-rose-400 transition-colors mb-3">Coming Soon</h3>
-                            <p className="font-mono text-zinc-500 text-xs mb-5 uppercase tracking-widest">Published on {new Date().toLocaleDateString()}</p>
-                            <p className="text-zinc-400 font-body leading-relaxed">Currently setting up the markdown parser and CMS so I can pretend to write regularly. Check back later for some actual content.</p>
-                        </div>
+                        {/* More docs coming soon */}
                     </div>
                 </motion.div>
             </div>
